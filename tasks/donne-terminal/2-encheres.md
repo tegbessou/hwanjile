@@ -42,4 +42,15 @@ Chien et écart (task 4) ; le preneur désigné ici n'a encore aucun effet sur l
 jeu.
 
 ## Plan technique
-_(partie domaine remplie par `domain-modeling` ; partie technique par `technical-plan`)_
+Partie domaine :
+- **Bounded context** : Tarot (unique).
+- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
+  chaque action.
+- **Introduit** : VO `Annonce`, `Contrat` (avec coefficient). Phase des
+  enchères, dont l'issue est un enum : donne annulée, ou preneur désigné.
+  Hors agrégat : politique d'enchère du bot (R13), à partir de la vue de son
+  siège.
+- **Consomme** : `Carte`, `Siège`, `Main`.
+
+Partie technique : _(remplie par `technical-plan`)_

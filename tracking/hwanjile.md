@@ -15,8 +15,8 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture. Écart au pipeline, à consigner en ADR.
-- **Prochaine action** : modéliser le domaine (`domain-modeling`), puis
-  ADR sur le partage des rôles
+- **Prochaine action** : revue du lot de cadrage (PR), puis `technical-plan`
+  de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
   - 2026-10-20 — problème validé en phase 1
@@ -25,3 +25,5 @@
   - 2026-10-21 — phase 2 close, référence : règlement FFT « Donnes libres » ;
     spec rédigée
   - 2026-10-21 — spec validée, découpée en 6 tasks, toutes produit-prêtes
+  - 2026-10-21 — domaine modélisé : `Donne` agrégat unique en typestate, pas
+    de domain event ; ADR-0001 à 0003 acceptés

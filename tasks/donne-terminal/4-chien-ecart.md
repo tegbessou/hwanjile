@@ -41,4 +41,13 @@ R4, R5, R14 (partie écart).
 Le décompte de l'écart et du chien pour le preneur (task 5).
 
 ## Plan technique
-_(partie domaine remplie par `domain-modeling` ; partie technique par `technical-plan`)_
+Partie domaine :
+- **Bounded context** : Tarot (unique).
+- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
+  chaque action.
+- **Introduit** : VO `Écart`. Phase d'écart entre enchères et jeu, sautée en
+  garde sans. Hors agrégat : écart du bot (R14).
+- **Consomme** : `Carte`, `Main`, `Chien`, `Contrat`.
+
+Partie technique : _(remplie par `technical-plan`)_

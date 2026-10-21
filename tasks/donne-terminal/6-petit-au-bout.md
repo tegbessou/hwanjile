@@ -31,4 +31,12 @@ R11.
 Rien.
 
 ## Plan technique
-_(partie domaine remplie par `domain-modeling` ; partie technique par `technical-plan`)_
+Partie domaine :
+- **Bounded context** : Tarot (unique).
+- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
+  chaque action.
+- **Introduit** : rien de nouveau ; la prime s'ajoute au calcul de `Marque`.
+- **Consomme** : `Pli`, `Camp`, `Marque`.
+
+Partie technique : _(remplie par `technical-plan`)_

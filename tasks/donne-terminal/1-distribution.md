@@ -34,4 +34,14 @@ R1.
 Petit sec et enchères (task 2).
 
 ## Plan technique
-_(partie domaine remplie par `domain-modeling` ; partie technique par `technical-plan`)_
+Partie domaine :
+- **Bounded context** : Tarot (unique).
+- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
+  chaque action.
+- **Introduit** : VO `Carte` (couleur et rang, atout 1 à 21, excuse ; valeur,
+  bout), `Siège` (ordre du jeu), `Main`, `Chien`. Première phase de `Donne`,
+  construite depuis un paquet déjà mélangé et les positions du chien reçus de
+  l'extérieur (le hasard reste hors du domaine). Vue par siège, et vue debug.
+
+Partie technique : _(remplie par `technical-plan`)_

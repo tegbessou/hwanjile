@@ -45,4 +45,13 @@ R8 (partie décompte), R9, R10, R12.
 Petit au bout (task 6).
 
 ## Plan technique
-_(partie domaine remplie par `domain-modeling` ; partie technique par `technical-plan`)_
+Partie domaine :
+- **Bounded context** : Tarot (unique).
+- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
+  chaque action.
+- **Introduit** : VO `Camp`, `Points` (représente le demi-point de R12),
+  `Marque`. Fin de donne.
+- **Consomme** : `Pli`, `Écart`, `Chien`, `Contrat`.
+
+Partie technique : _(remplie par `technical-plan`)_
