@@ -15,7 +15,8 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture. Écart au pipeline, à consigner en ADR.
-- **Prochaine action** : valider la spec, puis découper en tasks (phase 4)
+- **Prochaine action** : modéliser le domaine (`domain-modeling`), puis
+  ADR sur le partage des rôles
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
   - 2026-10-20 — problème validé en phase 1
@@ -23,3 +24,4 @@
     sans pression extérieure ; chaque session doit finir sur un état vert
   - 2026-10-21 — phase 2 close, référence : règlement FFT « Donnes libres » ;
     spec rédigée
+  - 2026-10-21 — spec validée, découpée en 6 tasks, toutes produit-prêtes

@@ -97,4 +97,11 @@ production, et la relecture n'y trouve plus d'erreur d'ownership ni de
 modélisation.
 
 ## Tasks
-_(rempli en phase 4)_
+Découpage en tranches verticales. Détail dans `tasks/donne-terminal/`.
+
+1. [Task 1 — Voir sa main après la distribution](../tasks/donne-terminal/1-distribution.md) — distribution, ma main affichée, mode debug.
+2. [Task 2 — Désigner le preneur par les enchères](../tasks/donne-terminal/2-encheres.md) — enchères, redistribution, petit sec.
+3. [Task 3 — Jouer les dix-huit plis](../tasks/donne-terminal/3-plis.md) — jeu de la carte, chien laissé de côté.
+4. [Task 4 — Traiter le chien selon le contrat](../tasks/donne-terminal/4-chien-ecart.md) — chien montré, écart, garde sans.
+5. [Task 5 — Afficher le résultat et la marque de la donne](../tasks/donne-terminal/5-marque.md) — décompte, contrat, marque.
+6. [Task 6 — Primer le petit au bout](../tasks/donne-terminal/6-petit-au-bout.md) — prime du dernier pli.
