@@ -2,7 +2,7 @@
 
 ## #001 — Donne complète en terminal
 - **Ouvert le** : 2026-10-20
-- **Dernière touche** : 2026-10-20
+- **Dernière touche** : 2026-10-21
 - **Échéance** : —
 - **Contexte** : Projet d'apprentissage de Rust par curiosité : un tarot à
   quatre, moi contre trois bots, contrats prise / garde / garde sans, sans
@@ -15,9 +15,11 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture. Écart au pipeline, à consigner en ADR.
-- **Prochaine action** : explorer le quoi (phase 2)
-- **Spec** : `product/donne-terminal.md` (à créer par `product-spec`)
+- **Prochaine action** : valider la spec, puis découper en tasks (phase 4)
+- **Spec** : `product/donne-terminal.md`
 - **Notes** :
   - 2026-10-20 — problème validé en phase 1
   - 2026-10-20 — risque principal : l'abandon, sessions intensives espacées
     sans pression extérieure ; chaque session doit finir sur un état vert
+  - 2026-10-21 — phase 2 close, référence : règlement FFT « Donnes libres » ;
+    spec rédigée
