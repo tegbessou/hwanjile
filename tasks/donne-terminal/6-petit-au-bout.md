@@ -17,6 +17,12 @@ R11.
     contient le petit
   - When la donne se termine
   - Then le total vaut 66 + 20 = 86
+- *Scénario : petit au bout du preneur sur un contrat chuté*
+  - Given une prise chutée de 7, le preneur remporte le dernier pli qui
+    contient le petit
+  - When la donne se termine
+  - Then le total vaut 25 + 7 − 10 = 22 ; le preneur marque −66, chaque
+    défenseur +22
 - *Scénario : petit joué avant le dernier pli*
   - Given le petit tombe au dixième pli
   - When la donne se termine

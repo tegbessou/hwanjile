@@ -14,12 +14,13 @@ Jouer une donne de bout en bout, de la distribution à la marque, sans qu'aucun
 coup illégal ne soit accepté.
 
 ## Scénario principal
-1. Un donneur est tiré au hasard. Le jeu est mélangé puis distribué (R1).
+1. Un donneur est tiré au hasard. Le jeu est mélangé puis distribué (R1,
+   R15).
 2. Les enchères font un tour, à partir de la droite du donneur (R3).
 3. En prise ou en garde, le chien est montré à tous, puis le preneur fait son
    écart (R4). En garde sans, le chien reste fermé (R5).
 4. Les dix-huit plis se jouent ; le joueur à droite du donneur entame, le
-   gagnant d'un pli entame le suivant (R6 à R8).
+   gagnant d'un pli entame le suivant (R6 à R8, R15, R16).
 5. Les points du preneur sont comptés, le contrat est passé ou chuté, puis la
    marque de chaque joueur est affichée (R9 à R12).
 
@@ -27,14 +28,17 @@ Je vois ma main, le pli en cours, et le chien quand il est retourné. Un mode
 debug montre en plus les mains des bots.
 
 ## Variantes et cas limites
-- Tout le monde passe : la donne est redistribuée, et je le vois.
-- Un joueur a le petit sec : la donne est annulée et redistribuée (R2), et je
-  le vois.
+- Tout le monde passe : la donne est redistribuée par le voisin de droite du
+  donneur, et je le vois.
+- Un joueur a le petit sec : la donne est annulée et redistribuée de même
+  (R2), et je le vois.
 - Je joue une carte illégale : elle est refusée avec la règle enfreinte, ma
   main ne change pas.
 - L'excuse est jouée alors que son camp n'a encore remporté aucun pli : la
   carte d'échange est donnée au premier pli que ce camp remporte.
 - Un bot preneur fait son écart lui-même, sous les mêmes interdits que moi.
+- Le preneur remporte les dix-sept premiers plis : l'excuse suit la règle du
+  chelem (R8), sans prime de chelem.
 
 ## Règles métier
 - **R1 — Distribution.** Trois cartes par trois, dans le sens inverse des
@@ -45,9 +49,10 @@ debug montre en plus les mains des bots.
 - **R3 — Enchères.** Chacun parle une fois, dans l'ordre du jeu. Une annonce
   dépasse la précédente : prise < garde < garde sans. Si tous passent, on
   redistribue.
-- **R4 — Écart.** Le preneur intègre le chien et écarte 6 cartes, ni roi ni
-  bout. Un atout ne s'écarte que s'il n'a pas d'autre choix, et il est montré.
-  L'écart compte pour le preneur.
+- **R4 — Écart.** Le preneur intègre le chien et choisit ses 6 cartes
+  d'écart en une fois, ni roi ni bout. Il n'y met d'atouts qu'à hauteur de ce
+  qui lui manque en cartes écartables hors atout pour arriver à 6, et ces
+  atouts sont montrés. L'écart compte pour le preneur.
 - **R5 — Garde sans.** Le chien reste fermé et compte pour le preneur, bouts
   compris.
 - **R6 — Fournir.** On joue la couleur demandée, sans obligation de monter.
@@ -57,33 +62,47 @@ debug montre en plus les mains des bots.
 - **R8 — Excuse.** Elle dispense de fournir et ne remporte pas le pli. Son camp
   la garde et donne en échange une carte à 0,5 point au camp qui remporte le
   pli. Si elle ouvre un pli, la carte suivante fixe la couleur. Jouée au
-  dernier pli, elle change de camp.
+  dernier pli, elle va au camp qui remporte ce pli ; sauf si le preneur a
+  remporté les dix-sept premiers plis et la joue en dernier : elle remporte
+  alors le pli.
 - **R9 — Contrat.** Le preneur doit réaliser 56, 51, 41 ou 36 points selon
   qu'il détient 0, 1, 2 ou 3 bouts.
-- **R10 — Marque.** (25 + écart au contrat) × coefficient : 1 en prise, 2 en
-  garde, 4 en garde sans. Chaque défenseur marque ce total, le preneur le
-  triple, avec le signe inverse. La somme des quatre marques vaut zéro.
+- **R10 — Marque.** Le total vaut (25 + écart au contrat) × coefficient :
+  1 en prise, 2 en garde, 4 en garde sans. Le preneur marque trois fois ce
+  total, en positif s'il passe, en négatif s'il chute ; chaque défenseur marque
+  le total avec le signe opposé. La somme des quatre marques vaut zéro.
 - **R11 — Petit au bout.** Le camp qui remporte le dernier pli contenant le
   petit gagne une prime de 10 × coefficient, quel que soit le résultat.
-- **R12 — Demi-point.** Il va au camp gagnant. Extrapolé de la règle FFT à
-  trois et cinq joueurs, le règlement ne disant rien à quatre.
+- **R12 — Demi-point.** Si le camp qui détient l'excuse n'a remporté aucun
+  pli, il la garde sans donner de carte d'échange, et le total du preneur
+  n'est pas entier. Le demi-point va alors au camp gagnant. Extrapolé de la
+  règle FFT à trois et cinq joueurs, le règlement ne disant rien à quatre.
 - **R13 — Enchère d'un bot.** Un bot dit prise s'il a au moins 2 bouts ou au
   moins 8 atouts, sinon il passe. Il ne surenchérit jamais.
 - **R14 — Jeu d'un bot.** Un bot joue une carte légale au hasard, et écarte au
   hasard parmi les cartes autorisées.
+- **R15 — Table.** Je suis Sud. Le jeu tourne de Sud à Est, Nord puis Ouest.
+  Le joueur qui suit le donneur parle et entame le premier. Après une
+  redistribution, ce même joueur devient donneur.
+- **R16 — Pli.** Le pli revient au plus fort atout joué, ou à défaut à la plus
+  forte carte de la couleur demandée. Son gagnant entame le pli suivant.
 
 Exemples :
-- R3 : Est dit prise, je dis garde ; Ouest ne peut plus que dire garde sans ou
-  passer.
-- R7 : le 15 d'atout est sur la table, j'ai le 12 et le 18 ; je dois jouer le 18.
+- R3 et R15 : Nord donne ; Ouest dit prise, je dis garde ; Est ne peut plus
+  que dire garde sans ou passer.
+- R7 : l'atout est demandé, le 15 est le plus fort atout du pli, j'ai le 12 et
+  le 18 et pas l'excuse ; je dois jouer le 18.
 - R9 et R10 : garde, 49 points avec 2 bouts ; le contrat passe de 8, soit
   (25 + 8) × 2 = 66 ; le preneur marque +198, chaque défenseur −66.
 - R11 : garde sans passée de 4, petit mené au bout par la défense ;
   (25 + 4) × 4 − 40 = 76.
-- R12 : avec 2 bouts, 40,5 points chutent de 1 ; 41,5 points passent de 1.
+- R12 : en garde, le preneur remporte les 18 plis avec 2 bouts, la défense
+  garde l'excuse ; il réalise 86,5 points, arrondis à 87 ; le contrat passe
+  de 46.
 
 ## Hors-scope
-- Garde contre, poignées, chelem : écartés au cadrage du projet.
+- Garde contre, poignées, primes de chelem : écartées au cadrage du projet.
+  Seule la règle de l'excuse en cas de chelem s'applique (R8).
 - Plusieurs donnes enchaînées et l'ordre des donneurs : sujet ultérieur.
 - Bots plus malins : sujet ultérieur.
 - Rituels physiques du règlement (tirage du donneur, coupe, arbitre, fautes de

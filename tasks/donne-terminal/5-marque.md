@@ -3,7 +3,7 @@
 > Sujet : [product/donne-terminal.md](../../product/donne-terminal.md)
 
 ## Règles métier couvertes
-R8 (partie décompte), R9, R10, R12.
+R8 (partie décompte et dernier pli), R9, R10, R12.
 
 ## Critères d'acceptation
 - *Scénario : contrat passé*
@@ -18,23 +18,29 @@ R8 (partie décompte), R9, R10, R12.
   - Given une garde sans dont le chien contient le 21
   - When la donne se termine
   - Then le 21 et les points du chien comptent pour le preneur
-- *Scénario : demi-point au camp gagnant*
-  - Given le preneur réalise 41,5 points avec 2 bouts
+- *Scénario : demi-point, défense sans pli*
+  - Given une garde où le preneur remporte les 18 plis avec 2 bouts, la
+    défense ayant joué l'excuse
   - When la donne se termine
-  - Then le contrat passe de 1
-- *Scénario : demi-point au camp gagnant, chute*
-  - Given le preneur réalise 40,5 points avec 2 bouts
-  - When la donne se termine
-  - Then le contrat chute de 1
+  - Then le preneur réalise 86,5 points arrondis à 87, le contrat passe de 46
+- *Scénario : excuse jouée avant tout pli de son camp*
+  - Given le preneur joue l'excuse au premier pli, remporté par Est
+  - When le preneur remporte ensuite son premier pli
+  - Then l'excuse compte pour le preneur et une carte à 0,5 point de ce pli
+    passe à la défense
 - *Scénario : échange de l'excuse*
   - Given le preneur joue l'excuse sur un pli remporté par la défense
   - When la donne se termine
   - Then l'excuse compte pour le preneur et la défense reçoit une carte à
-    0,5 point de ses plis
+    0,5 point prise dans les plis du preneur
 - *Scénario : excuse au dernier pli*
   - Given le preneur joue l'excuse au dernier pli, remporté par la défense
   - When la donne se termine
   - Then l'excuse compte pour la défense
+- *Scénario : excuse au dernier pli, preneur maître de tous les plis*
+  - Given le preneur a remporté les dix-sept premiers plis
+  - When il joue l'excuse au dernier pli
+  - Then il remporte ce pli, sans prime de chelem
 
 ## Definition of Ready
 - Cartes rouges concernées fermées ✓

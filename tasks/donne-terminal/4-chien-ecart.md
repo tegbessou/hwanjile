@@ -15,14 +15,16 @@ R4, R5, R14 (partie écart).
   - When je choisis le roi de cœur
   - Then le choix est refusé avec la règle enfreinte
 - *Scénario : atout écarté par nécessité*
-  - Given après le chien, mes seules cartes hors rois et bouts sont 4 cartes
-    de couleur et des atouts
-  - When j'écarte 4 cartes de couleur et 2 atouts
+  - Given après le chien, mes seules cartes écartables hors atout sont 4
+    cartes de couleur
+  - When je propose un écart de ces 4 cartes et de 2 atouts
   - Then l'écart est accepté et les 2 atouts sont montrés à la défense
 - *Scénario : atout écarté sans nécessité*
-  - Given il me reste des cartes de couleur écartables
-  - When je choisis un atout
-  - Then le choix est refusé
+  - Given après le chien, j'ai 5 cartes écartables hors atout
+  - When je propose un écart de ces 5 cartes et de 1 atout, puis un écart de
+    4 d'entre elles et de 2 atouts
+  - Then le premier écart est accepté, le second est refusé avec la règle
+    enfreinte
 - *Scénario : garde sans*
   - Given Nord est preneur en garde sans
   - When les enchères se terminent
@@ -30,7 +32,8 @@ R4, R5, R14 (partie écart).
 - *Scénario : bot preneur*
   - Given un bot preneur en prise
   - When il fait son écart
-  - Then l'écart contient 6 cartes, sans roi ni bout
+  - Then l'écart contient 6 cartes, sans roi ni bout, et pas plus d'atouts
+    que R4 n'en autorise
 
 ## Definition of Ready
 - Cartes rouges concernées fermées ✓
@@ -49,5 +52,8 @@ Partie domaine :
 - **Introduit** : VO `Écart`. Phase d'écart entre enchères et jeu, sautée en
   garde sans. Hors agrégat : écart du bot (R14).
 - **Consomme** : `Carte`, `Main`, `Chien`, `Contrat`.
+
+- **Note** : l'écart se valide d'un bloc ; la règle d'atout ne se juge que
+  sur les 6 cartes proposées ensemble.
 
 Partie technique : _(remplie par `technical-plan`)_

@@ -4,9 +4,23 @@
 
 ## Règles métier couvertes
 R6, R7, R8 (partie jeu : dispense de fournir, pli non remporté, couleur fixée
-par la carte suivante), R14 (partie jeu).
+par la carte suivante), R14 (partie jeu), R15 (première entame), R16.
 
 ## Critères d'acceptation
+- *Scénario : première entame*
+  - Given Nord a donné
+  - When le jeu commence
+  - Then Ouest entame le premier pli
+- *Scénario : pli remporté à l'atout*
+  - Given le roi de cœur est demandé, Est coupe du 3 d'atout, les autres
+    fournissent à cœur
+  - When le pli est complet
+  - Then Est remporte le pli
+- *Scénario : pli remporté à la couleur*
+  - Given le 7 de cœur est demandé, les autres jouent le roi de cœur, le 9 de
+    cœur et le roi de pique, sans atout
+  - When le pli est complet
+  - Then le joueur du roi de cœur remporte le pli
 - *Scénario : fournir sans monter*
   - Given le 10 de pique est demandé et j'ai l'as et la dame de pique
   - When je joue l'as de pique
@@ -16,12 +30,13 @@ par la carte suivante), R14 (partie jeu).
   - When je joue le 5 de cœur
   - Then la carte est refusée avec la règle enfreinte, ma main ne change pas
 - *Scénario : monter à l'atout*
-  - Given le 15 d'atout est le plus fort atout du pli, j'ai le 12 et le 18
+  - Given l'atout est demandé, le 15 est le plus fort atout du pli, j'ai le 12
+    et le 18 et pas l'excuse
   - When je joue le 12
   - Then la carte est refusée ; seul le 18 est accepté
 - *Scénario : pisser*
-  - Given le 19 d'atout est sur la table, j'ai le 4 et le 9 et aucun atout
-    plus fort
+  - Given l'atout est demandé, le 19 est le plus fort atout du pli, j'ai le 4
+    et le 9 et aucun atout plus fort
   - When je joue le 4
   - Then la carte est acceptée
 - *Scénario : défausse*

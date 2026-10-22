@@ -3,21 +3,25 @@
 > Sujet : [product/donne-terminal.md](../../product/donne-terminal.md)
 
 ## Règles métier couvertes
-R2, R3, R13.
+R2, R3, R13, R15 (ordre de parole, donneur après redistribution).
 
 ## Critères d'acceptation
+- *Scénario : ordre de parole*
+  - Given Nord donne
+  - When les enchères commencent
+  - Then Ouest parle le premier, puis moi, puis Est, puis Nord
 - *Scénario : surenchère*
-  - Given Est, à droite du donneur, dit prise
+  - Given Nord donne et Ouest dit prise
   - When je dis garde
-  - Then Ouest ne peut que dire garde sans ou passer
+  - Then Est ne peut que dire garde sans ou passer
 - *Scénario : annonce trop basse refusée*
-  - Given Est a dit garde
+  - Given Nord donne et Ouest a dit garde
   - When je dis prise
   - Then l'annonce est refusée avec la règle enfreinte, et je reparle
 - *Scénario : tout le monde passe*
-  - Given les trois bots passent
-  - When je passe
-  - Then la donne est redistribuée, et je le vois
+  - Given Nord donne, et Ouest, Est et Nord passent avec moi
+  - When le dernier joueur passe
+  - Then la donne est redistribuée par Ouest, et je le vois
 - *Scénario : bot preneur*
   - Given un bot avec 2 bouts et 5 atouts, à qui la parole arrive avant
     toute annonce
@@ -30,7 +34,8 @@ R2, R3, R13.
 - *Scénario : petit sec*
   - Given une main dont le seul atout est le petit, sans l'excuse
   - When la distribution se termine
-  - Then la donne est annulée et redistribuée avant les enchères, et je le vois
+  - Then la donne est annulée avant les enchères et redistribuée par le
+    voisin de droite du donneur, et je le vois
 
 ## Definition of Ready
 - Cartes rouges concernées fermées ✓
@@ -52,5 +57,9 @@ Partie domaine :
   Hors agrégat : politique d'enchère du bot (R13), à partir de la vue de son
   siège.
 - **Consomme** : `Carte`, `Siège`, `Main`.
+
+- **À reprendre au plan technique** : une action refusée (annonce trop basse)
+  doit rendre la phase avec le refus, pour que je reparle sur la même donne
+  (conséquence à porter dans ADR-0003).
 
 Partie technique : _(remplie par `technical-plan`)_

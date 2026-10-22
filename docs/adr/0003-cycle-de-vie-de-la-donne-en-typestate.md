@@ -1,6 +1,6 @@
 # ADR-0003 — Cycle de vie de la donne en typestate
 
-- Statut : accepté
+- Statut : proposé
 - Date : 2026-10-21
 - Portée : contexte Tarot, agrégat `Donne`
 
@@ -25,6 +25,9 @@ suivante. Jouer une carte pendant les enchères ne compile pas.
 - L'issue d'une transition n'est connue qu'à l'exécution (redistribuer, écarter
   ou jouer après les enchères) : ces transitions rendent un enum des phases
   possibles, et la boucle du terminal tient cet enum.
+- Une action refusée (carte illégale, annonce trop basse, écart interdit) ne
+  peut pas perdre la phase qu'elle a consommée : elle la rend avec le refus,
+  pour que le joueur rejoue sur la même donne.
 - Consommer `self` à chaque action impose de penser la propriété des cartes
   dès la task 2 : c'est voulu, et c'est aussi une marche de plus pour un
   apprenant qui reprend Rust.

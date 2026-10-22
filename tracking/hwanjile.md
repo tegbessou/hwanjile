@@ -9,14 +9,15 @@
   poignées ni chelem. Ce premier sujet couvre une donne complète jouée depuis
   un terminal. Le navigateur viendra en #002. Quand l'apprenant et le joueur
   s'opposent, l'apprenant tranche.
-- **Critère de succès** : côté joueur, une partie complète jouable dans le
-  navigateur contre trois bots (atteint en #002). Côté apprenant, j'écris
+- **Critère de succès** : côté joueur, je joue une donne complète en
+  terminal et la marque affichée correspond au calcul à la main (le
+  navigateur, critère du projet, viendra en #002). Côté apprenant, j'écris
   seul le code de production, et la relecture n'y trouve plus d'erreur
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
-  rouges et la relecture. Écart au pipeline, à consigner en ADR.
-- **Prochaine action** : revue du lot de cadrage (PR), puis `technical-plan`
-  de la task 1
+  rouges et la relecture (ADR-0001).
+- **Prochaine action** : seconde revue de la PR #1, accepter ADR-0003, puis
+  `technical-plan` de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
   - 2026-10-20 — problème validé en phase 1
@@ -27,3 +28,6 @@
   - 2026-10-21 — spec validée, découpée en 6 tasks, toutes produit-prêtes
   - 2026-10-21 — domaine modélisé : `Donne` agrégat unique en typestate, pas
     de domain event ; ADR-0001 à 0003 acceptés
+  - 2026-10-22 — revue PR #1 : R12 réécrite (défense ou preneur sans pli),
+    R15 table et R16 pli ajoutées, écart validé d'un bloc, excuse du chelem
+    retenue sans prime ; ADR-0003 repassé en proposé

@@ -3,14 +3,14 @@
 > Sujet : [product/donne-terminal.md](../../product/donne-terminal.md)
 
 ## Règles métier couvertes
-R1.
+R1, R15 (place et donneur).
 
 ## Critères d'acceptation
 - *Scénario : ma main est distribuée*
   - Given une nouvelle donne
   - When le jeu est distribué
-  - Then je vois mes 18 cartes, rangées par couleur puis par force, et le
-    donneur tiré au hasard
+  - Then je vois mes 18 cartes, rangées par couleur puis par force, ma place
+    (Sud) et le donneur tiré au hasard
 - *Scénario : le jeu est complet*
   - Given une donne distribuée
   - When on réunit les quatre mains et le chien
