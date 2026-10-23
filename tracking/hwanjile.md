@@ -33,5 +33,5 @@
     retenue sans prime ; ADR-0003 repassé en proposé
   - 2026-10-23 — ADR-0003 accepté avec sa conséquence sur les actions refusées
   - 2026-10-23 — seconde revue PR #1 : R8 reprend l'excuse de la défense en
-    chelem (FFT p. 7), R12 réduite au preneur sans pli, petit au bout en
-    chelem ajouté à R11 (FFT p. 5)
+    chelem (FFT p. 8), R12 réduite au preneur sans pli, petit au bout en
+    chelem ajouté à R11 (FFT p. 6)

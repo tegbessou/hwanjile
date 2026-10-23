@@ -66,8 +66,9 @@ debug montre en plus les mains des bots.
   pli. Si elle ouvre un pli, la carte suivante fixe la couleur. Jouée au
   dernier pli, elle va au camp qui remporte ce pli ; sauf si le preneur a
   remporté les dix-sept premiers plis et la joue en dernier : elle remporte
-  alors le pli. Si le preneur remporte tous les plis sans détenir l'excuse, la
-  défense la garde et elle compte 4 points.
+  alors le pli. Si la défense détient l'excuse et que le preneur remporte tous
+  les autres plis, la défense la garde, même jouée au dernier pli, et elle
+  compte 4 points.
 - **R9 — Contrat.** Le preneur doit réaliser 56, 51, 41 ou 36 points selon
   qu'il détient 0, 1, 2 ou 3 bouts.
 - **R10 — Marque.** Le total vaut (25 + écart au contrat) × coefficient :

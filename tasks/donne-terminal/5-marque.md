@@ -19,8 +19,8 @@ R8 (partie décompte et dernier pli), R9, R10, R12.
   - When la donne se termine
   - Then le 21 et les points du chien comptent pour le preneur
 - *Scénario : excuse de la défense sans pli*
-  - Given une garde où le preneur remporte les 18 plis avec 2 bouts, la
-    défense ayant joué l'excuse
+  - Given une garde où le preneur remporte les dix-sept premiers plis avec
+    2 bouts, et Est joue l'excuse au dernier pli
   - When la donne se termine
   - Then l'excuse compte 4 points pour la défense ; le preneur réalise
     87 points, le contrat passe de 46
