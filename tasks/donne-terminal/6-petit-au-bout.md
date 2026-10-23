@@ -23,6 +23,12 @@ R11.
   - When la donne se termine
   - Then le total vaut 25 + 7 − 10 = 22 ; le preneur marque −66, chaque
     défenseur +22
+- *Scénario : petit au bout en chelem*
+  - Given une garde où le preneur a remporté les dix-sept premiers plis, dont
+    l'avant-dernier qui contient le petit
+  - When il joue l'excuse au dernier pli
+  - Then il réalise 91 points avec 3 bouts et la prime lui est comptée :
+    (25 + 55) × 2 + 20 = 180
 - *Scénario : petit joué avant le dernier pli*
   - Given le petit tombe au dixième pli
   - When la donne se termine

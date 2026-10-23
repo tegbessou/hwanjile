@@ -19,8 +19,8 @@ R2, R3, R13, R15 (ordre de parole, donneur après redistribution).
   - When je dis prise
   - Then l'annonce est refusée avec la règle enfreinte, et je reparle
 - *Scénario : tout le monde passe*
-  - Given Nord donne, et Ouest, Est et Nord passent avec moi
-  - When le dernier joueur passe
+  - Given Nord donne, et Ouest, moi puis Est avons passé
+  - When Nord passe
   - Then la donne est redistribuée par Ouest, et je le vois
 - *Scénario : bot preneur*
   - Given un bot avec 2 bouts et 5 atouts, à qui la parole arrive avant
@@ -59,7 +59,7 @@ Partie domaine :
 - **Consomme** : `Carte`, `Siège`, `Main`.
 
 - **À reprendre au plan technique** : une action refusée (annonce trop basse)
-  doit rendre la phase avec le refus, pour que je reparle sur la même donne
-  (conséquence à porter dans ADR-0003).
+  rend la phase avec le refus, pour que je reparle sur la même donne
+  (conséquence d'ADR-0003).
 
 Partie technique : _(remplie par `technical-plan`)_

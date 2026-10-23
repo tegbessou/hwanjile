@@ -37,8 +37,10 @@ debug montre en plus les mains des bots.
 - L'excuse est jouée alors que son camp n'a encore remporté aucun pli : la
   carte d'échange est donnée au premier pli que ce camp remporte.
 - Un bot preneur fait son écart lui-même, sous les mêmes interdits que moi.
-- Le preneur remporte les dix-sept premiers plis : l'excuse suit la règle du
-  chelem (R8), sans prime de chelem.
+- Le preneur remporte tous les plis : l'excuse et le petit au bout suivent la
+  règle du chelem (R8, R11), sans prime de chelem.
+- Le preneur ne remporte aucun pli : il garde l'excuse s'il l'a jouée avant
+  le dernier pli (R12).
 
 ## Règles métier
 - **R1 — Distribution.** Trois cartes par trois, dans le sens inverse des
@@ -64,7 +66,8 @@ debug montre en plus les mains des bots.
   pli. Si elle ouvre un pli, la carte suivante fixe la couleur. Jouée au
   dernier pli, elle va au camp qui remporte ce pli ; sauf si le preneur a
   remporté les dix-sept premiers plis et la joue en dernier : elle remporte
-  alors le pli.
+  alors le pli. Si le preneur remporte tous les plis sans détenir l'excuse, la
+  défense la garde et elle compte 4 points.
 - **R9 — Contrat.** Le preneur doit réaliser 56, 51, 41 ou 36 points selon
   qu'il détient 0, 1, 2 ou 3 bouts.
 - **R10 — Marque.** Le total vaut (25 + écart au contrat) × coefficient :
@@ -72,11 +75,12 @@ debug montre en plus les mains des bots.
   total, en positif s'il passe, en négatif s'il chute ; chaque défenseur marque
   le total avec le signe opposé. La somme des quatre marques vaut zéro.
 - **R11 — Petit au bout.** Le camp qui remporte le dernier pli contenant le
-  petit gagne une prime de 10 × coefficient, quel que soit le résultat.
-- **R12 — Demi-point.** Si le camp qui détient l'excuse n'a remporté aucun
-  pli, il la garde sans donner de carte d'échange, et le total du preneur
-  n'est pas entier. Le demi-point va alors au camp gagnant. Extrapolé de la
-  règle FFT à trois et cinq joueurs, le règlement ne disant rien à quatre.
+  petit gagne une prime de 10 × coefficient, quel que soit le résultat. Si le
+  preneur a remporté les dix-sept premiers plis et joue l'excuse au dernier,
+  le petit compte au bout quand il est joué à l'avant-dernier pli.
+- **R12 — Preneur sans pli.** Si le preneur joue l'excuse avant le dernier pli
+  et ne remporte aucun pli, il la garde sans carte d'échange, et elle compte
+  4 points. Extrapolé de la règle de la défense sans pli (R8).
 - **R13 — Enchère d'un bot.** Un bot dit prise s'il a au moins 2 bouts ou au
   moins 8 atouts, sinon il passe. Il ne surenchérit jamais.
 - **R14 — Jeu d'un bot.** Un bot joue une carte légale au hasard, et écarte au
@@ -96,13 +100,17 @@ Exemples :
   (25 + 8) × 2 = 66 ; le preneur marque +198, chaque défenseur −66.
 - R11 : garde sans passée de 4, petit mené au bout par la défense ;
   (25 + 4) × 4 − 40 = 76.
-- R12 : en garde, le preneur remporte les 18 plis avec 2 bouts, la défense
-  garde l'excuse ; il réalise 86,5 points, arrondis à 87 ; le contrat passe
+- R8 : en garde, le preneur remporte les 18 plis avec 2 bouts, la défense
+  garde l'excuse, qui compte 4 points ; il réalise 87 points, le contrat passe
   de 46.
+- R12 : en prise, le preneur joue l'excuse au cinquième pli et ne remporte
+  aucun pli ; avec un écart de 12 points, il réalise 16 points et 1 bout ; le
+  contrat chute de 35, soit 25 + 35 = 60.
 
 ## Hors-scope
 - Garde contre, poignées, primes de chelem : écartées au cadrage du projet.
-  Seule la règle de l'excuse en cas de chelem s'applique (R8).
+  Seules les règles de l'excuse et du petit au bout en cas de chelem
+  s'appliquent (R8, R11).
 - Plusieurs donnes enchaînées et l'ordre des donneurs : sujet ultérieur.
 - Bots plus malins : sujet ultérieur.
 - Rituels physiques du règlement (tirage du donneur, coupe, arbitre, fautes de

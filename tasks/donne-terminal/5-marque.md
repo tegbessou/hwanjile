@@ -18,16 +18,24 @@ R8 (partie décompte et dernier pli), R9, R10, R12.
   - Given une garde sans dont le chien contient le 21
   - When la donne se termine
   - Then le 21 et les points du chien comptent pour le preneur
-- *Scénario : demi-point, défense sans pli*
+- *Scénario : excuse de la défense sans pli*
   - Given une garde où le preneur remporte les 18 plis avec 2 bouts, la
     défense ayant joué l'excuse
   - When la donne se termine
-  - Then le preneur réalise 86,5 points arrondis à 87, le contrat passe de 46
+  - Then l'excuse compte 4 points pour la défense ; le preneur réalise
+    87 points, le contrat passe de 46
+- *Scénario : preneur sans pli*
+  - Given une prise où le preneur joue l'excuse au cinquième pli, ne remporte
+    aucun pli, et a un écart de 12 points
+  - When la donne se termine
+  - Then l'excuse compte 4 points pour le preneur ; il réalise 16 points avec
+    1 bout, le contrat chute de 35 ; le preneur marque −180, chaque
+    défenseur +60
 - *Scénario : excuse jouée avant tout pli de son camp*
   - Given le preneur joue l'excuse au premier pli, remporté par Est
   - When le preneur remporte ensuite son premier pli
-  - Then l'excuse compte pour le preneur et une carte à 0,5 point de ce pli
-    passe à la défense
+  - Then l'excuse compte pour le preneur, et une carte à 0,5 point passe à
+    la défense dès que les plis du preneur en contiennent une
 - *Scénario : échange de l'excuse*
   - Given le preneur joue l'excuse sur un pli remporté par la défense
   - When la donne se termine
@@ -56,7 +64,8 @@ Partie domaine :
 - **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
 - **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
   chaque action.
-- **Introduit** : VO `Camp`, `Points` (représente le demi-point de R12),
+- **Introduit** : VO `Camp`, `Points` (au demi-point près ; l'excuse vaut
+  4 dans les cas de R8 et R12),
   `Marque`. Fin de donne.
 - **Consomme** : `Pli`, `Écart`, `Chien`, `Contrat`.
 

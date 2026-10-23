@@ -2,11 +2,11 @@
 
 ## #001 — Donne complète en terminal
 - **Ouvert le** : 2026-10-20
-- **Dernière touche** : 2026-10-21
+- **Dernière touche** : 2026-10-23
 - **Échéance** : —
 - **Contexte** : Projet d'apprentissage de Rust par curiosité : un tarot à
   quatre, moi contre trois bots, contrats prise / garde / garde sans, sans
-  poignées ni chelem. Ce premier sujet couvre une donne complète jouée depuis
+  poignées ni primes de chelem. Ce premier sujet couvre une donne complète jouée depuis
   un terminal. Le navigateur viendra en #002. Quand l'apprenant et le joueur
   s'opposent, l'apprenant tranche.
 - **Critère de succès** : côté joueur, je joue une donne complète en
@@ -16,7 +16,7 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture (ADR-0001).
-- **Prochaine action** : seconde revue de la PR #1, puis
+- **Prochaine action** : troisième revue de la PR #1, puis
   `technical-plan` de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
@@ -32,3 +32,6 @@
     R15 table et R16 pli ajoutées, écart validé d'un bloc, excuse du chelem
     retenue sans prime ; ADR-0003 repassé en proposé
   - 2026-10-23 — ADR-0003 accepté avec sa conséquence sur les actions refusées
+  - 2026-10-23 — seconde revue PR #1 : R8 reprend l'excuse de la défense en
+    chelem (FFT p. 7), R12 réduite au preneur sans pli, petit au bout en
+    chelem ajouté à R11 (FFT p. 5)

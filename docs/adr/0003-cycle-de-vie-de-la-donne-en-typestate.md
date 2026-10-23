@@ -1,7 +1,7 @@
 # ADR-0003 — Cycle de vie de la donne en typestate
 
 - Statut : accepté
-- Date : 2026-10-21
+- Date : 2026-10-23
 - Portée : contexte Tarot, agrégat `Donne`
 
 ## Contexte et problème
