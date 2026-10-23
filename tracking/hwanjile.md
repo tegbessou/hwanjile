@@ -16,7 +16,7 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture (ADR-0001).
-- **Prochaine action** : troisième revue de la PR #1, puis
+- **Prochaine action** : cinquième revue de la PR #1, puis
   `technical-plan` de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
@@ -35,3 +35,6 @@
   - 2026-10-23 — seconde revue PR #1 : R8 reprend l'excuse de la défense en
     chelem (FFT p. 8), R12 réduite au preneur sans pli, petit au bout en
     chelem ajouté à R11 (FFT p. 6)
+  - 2026-10-23 — troisième et quatrième revues : la défense garde l'excuse en
+    chelem même jouée au dernier pli, à condition que le preneur remporte les
+    18 plis (R8)
