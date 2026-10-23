@@ -16,7 +16,7 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture (ADR-0001).
-- **Prochaine action** : seconde revue de la PR #1, accepter ADR-0003, puis
+- **Prochaine action** : seconde revue de la PR #1, puis
   `technical-plan` de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
@@ -31,3 +31,4 @@
   - 2026-10-22 — revue PR #1 : R12 réécrite (défense ou preneur sans pli),
     R15 table et R16 pli ajoutées, écart validé d'un bloc, excuse du chelem
     retenue sans prime ; ADR-0003 repassé en proposé
+  - 2026-10-23 — ADR-0003 accepté avec sa conséquence sur les actions refusées
