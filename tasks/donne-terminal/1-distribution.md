@@ -49,9 +49,8 @@ Partie technique :
 - **Package** : une bibliothèque (`domain`, `application`, `infrastructure`)
   et un binaire (`ui`, composition root dans `main`) ; `rust-structure`.
 - **Domaine** : `DealInBidding` est la première phase de `Deal`. Sa
-  construction refuse des positions de chien contraires à R1. Le rangement de
-  la main pour l'affichage est porté par `SeatView`, pour que #002 le
-  réutilise.
+  construction refuse des positions de chien contraires à R1. Ce qu'un siège
+  connaît de la donne est une `Observation`.
 - **Application** : service `OpenDeal`, générique sur `S: Shuffler`. Il
   obtient le tirage du port et construit `DealInBidding`. Pas de bus ni de
   CQRS : un seul processus, sans persistance ni concurrence.
@@ -61,16 +60,19 @@ Partie technique :
   (crates.io, 2026-10-25 ; docs.rs : `rand::rng`,
   `rand::seq::SliceRandom`, `rand::seq::index::sample`,
   `rand::random_range`).
-- **UI** : terminal en `println!`, qui affiche la `SeatView` de Sud ;
+- **UI** : terminal en `println!`, qui affiche l'`Observation` de Sud et
+  range la main dans l'ordre du critère d'acceptation (préférence
+  d'affichage, pas règle du domaine) ;
   `--debug` lu par `std::env::args` affiche en plus les mains des bots et le
   chien.
 - **Forme de la tranche** : `main` construit `RandShuffler` et `OpenDeal` →
   `ui` demande l'ouverture → `OpenDeal` → `Shuffler` → `DealInBidding` →
-  `SeatView` rendue par `ui`.
+  `Observation` rendue par `ui`.
 - **Tests** : les quatre scénarios dans `tests/distribution.rs`, par l'API
   publique ; une doublure de `Shuffler` écrite à la main fixe le tirage. Les
-  tests propres à `Card` et `Seat` vivent dans leur module.
+  tests propres à `Card`, `Seat` et au rangement de la main vivent dans leur
+  module.
 - **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
 - **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,
-  `DealInBidding`, `SeatView`, `Shuffler`, `OpenDeal`, `RandShuffler` ;
+  `DealInBidding`, `Observation`, `Shuffler`, `OpenDeal`, `RandShuffler` ;
   consomme rien.

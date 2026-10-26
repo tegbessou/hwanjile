@@ -34,5 +34,5 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | chelem | slam | pagat |
 | petit au bout | petit au bout | pagat |
 | phases de la donne | `DealInBidding`, `DealInDiscard`, `DealInPlay` | choisi |
-| vue d'un siège | `SeatView` | choisi |
+| ce qu'un siège connaît de la donne | `Observation` | choisi |
 | tirage du hasard de la donne | `Shuffler` | choisi |
