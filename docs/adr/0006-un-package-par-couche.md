@@ -1,6 +1,6 @@
 # ADR-0006 — Un package par couche
 
-- Statut : proposé
+- Statut : accepté
 - Date : 2026-10-26
 - Portée : projet Hwanjile, tout le code
 

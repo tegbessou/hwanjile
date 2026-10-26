@@ -1,6 +1,6 @@
 # ADR-0005 — Commandes et lectures par handlers, sans bus
 
-- Statut : proposé
+- Statut : accepté
 - Date : 2026-10-26
 - Portée : projet Hwanjile, tout le code ; remplace la conséquence
   d'ADR-0003 sur la boucle du terminal
