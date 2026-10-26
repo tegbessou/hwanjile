@@ -1,6 +1,6 @@
 # ADR-0004 — Le code est en anglais
 
-- Statut : proposé
+- Statut : accepté
 - Date : 2026-10-26
 - Portée : projet Hwanjile, tout le code
 
