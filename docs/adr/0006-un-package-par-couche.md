@@ -29,6 +29,8 @@ sens des couches ne compile pas.
 - Quatre `Cargo.toml` à tenir, et `pub` sur tout ce qu'une couche expose à
   la suivante.
 - Les tests d'intégration se répartissent par package.
+- Un second bounded context rouvre la décision : un package par contexte et
+  par couche, ou un package par contexte avec ses couches en modules.
 - La disposition reprend celle de matklad, conçue pour des projets bien plus
   gros : elle est ici surdimensionnée en volume, choisie pour la garantie.
 

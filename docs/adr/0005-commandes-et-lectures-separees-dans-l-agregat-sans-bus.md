@@ -26,8 +26,6 @@ pas de read model distinct.
   ADR-0002 exclut.
 
 ## Conséquences
-- Le code s'écarte de la posture : un lecteur habitué aux projets Symfony n'y
-  trouvera ni commande ni handler.
 - Le jour où #002 introduit un serveur ou plusieurs parties en parallèle, la
   question du bus se repose.
 - La séparation repose sur les signatures (consommer `self` ou l'emprunter)
