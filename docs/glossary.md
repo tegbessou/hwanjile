@@ -36,6 +36,7 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | phases de la donne | `DealInBidding`, `DealInDiscard`, `DealInPlay` | choisi |
 | vue du siège (ce qu'un siège connaît de la donne) | `Observation` | choisi |
 | vue debug | `DebugObservation` | choisi |
-| positions du chien | kitty positions | choisi |
+| positions du chien | kitty positions (intervalles entre paquets) | choisi |
 | mélange du paquet et positions du chien | `Shuffler` | choisi |
+| hasard fourni par la crate `rand` | `RandChance` | choisi |
 | tirage du premier donneur | `DealerDraw` | choisi |
