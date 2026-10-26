@@ -40,3 +40,6 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | mélange du paquet et positions du chien | `Shuffler` | choisi |
 | hasard fourni par la crate `rand` | `RandChance` | choisi |
 | tirage du premier donneur | `DealerDraw` | choisi |
+| donne en cours, rangée | `DealRepository` | choisi |
+| ce que voit un siège, côté application | `SeatObservation` | choisi |
+| ce que montre la vue debug, côté application | `TableObservation` | choisi |

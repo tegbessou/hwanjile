@@ -42,3 +42,6 @@
   - 2026-10-26 — deux revues de la PR #2 : paquet complet exigé par le
     domaine, donneur sorti du `Shuffler` (`DealerDraw`), un package par couche
     (ADR-0006), séparation commandes / lectures sans bus (ADR-0005)
+  - 2026-10-26 — ADR-0005 réécrit : handlers de commande et de lecture,
+    donne rangée par un dépôt, modèles de lecture de l'application ; le
+    terminal ne dépend plus du domaine

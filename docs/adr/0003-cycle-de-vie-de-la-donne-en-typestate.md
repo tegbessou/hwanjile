@@ -1,6 +1,7 @@
 # ADR-0003 — Cycle de vie de la donne en typestate
 
-- Statut : accepté
+- Statut : accepté ; conséquence sur la boucle du terminal remplacée par
+  ADR-0005
 - Date : 2026-10-23
 - Portée : contexte Tarot, agrégat `Deal`
 

@@ -51,48 +51,67 @@ Partie domaine :
   fois) et des positions hors de ces bornes ou répétées.
 - **Lecture** : `Observation`, ce qu'un siège connaît de la donne ;
   `DebugObservation`, les quatre mains et le chien. Les actions consomment la
-  phase, les lectures ne la modifient pas ; ADR-0005.
+  phase, les lectures ne la modifient pas. `Deal` est l'enum des phases
+  (ADR-0003), ce que range le dépôt.
 
 Partie technique :
 - **Packages** : workspace d'un package par couche ; ADR-0006,
   `rust-structure`. `hwanjile-domain`, `hwanjile-application`,
   `hwanjile-infrastructure`, et le binaire `hwanjile-terminal`, composition
-  root.
-- **Application** :
-  - `OpenDeal`, générique sur `S: Shuffler`, reçoit le donneur, fait
-    réordonner le jeu complet par le port, obtient les positions du chien et
-    construit `DealInBidding` ; il rend une erreur si la construction refuse,
-    que le terminal affiche avant de s'arrêter. La redistribution de la
-    task 2 le rappellera avec le donneur connu (R15).
-  - `StartGame`, générique sur `D: DealerDraw` et `S: Shuffler`, détient un
-    `OpenDeal<S>` ; il tire le premier donneur et ouvre la donne.
-  - Pas de bus ni de handlers ; ADR-0005.
-- **Ports & adaptateurs** : `Shuffler` (réordonne le jeu reçu, tire les
-  positions du chien) et `DealerDraw` (premier donneur), définis par `application` ←
-  `RandChance` (`infrastructure`) implémente les deux, sur la crate `rand`
-  0.10.3 (crates.io, publiée le 2026-09-20 ; docs.rs : `rand::rng`,
-  `rand::seq::SliceRandom`, `rand::seq::index::sample`,
-  `rand::random_range`).
-- **Interface terminal** : `println!`, affiche l'`Observation` de Sud et
-  range la main dans l'ordre du critère d'acceptation, règle d'affichage
-  portée par l'interface ; `--debug`, lu par `std::env::args`, affiche en
-  plus la `DebugObservation`.
-- **Forme de la tranche** : le binaire construit l'adaptateur, `OpenDeal` et
-  `StartGame` → `StartGame` → `DealerDraw`, puis `OpenDeal` → `Shuffler` →
-  `DealInBidding` → `Observation` rendue par le terminal.
+  root, qui ne dépend pas de `hwanjile-domain`.
+- **Application** (ADR-0005) :
+  - Commande `StartGame` et son handler : tire le premier donneur par
+    `DealerDraw`, ouvre la donne par `OpenDeal`, range le `Deal` par le
+    dépôt.
+  - `OpenDeal`, générique sur `S: Shuffler`, partagé entre handlers : reçoit
+    le donneur, fait réordonner le jeu complet par le port, obtient les
+    positions du chien et construit `DealInBidding` ; il rend une erreur si
+    la construction refuse. La redistribution de la task 2 le rappellera
+    avec le donneur connu (R15).
+  - Requête `ObserveSeat` et son handler : charge le `Deal`, demande
+    l'`Observation` du siège, la traduit en modèle de lecture
+    `SeatObservation`.
+  - Requête `ObserveTable` et son handler : même chemin pour la
+    `DebugObservation`, traduite en `TableObservation`.
+  - Commandes, requêtes et modèles de lecture portent des valeurs de
+    l'application pour le siège et la carte, jamais des types du domaine.
+  - Pas de bus : le terminal appelle les handlers.
+- **Ports & adaptateurs** :
+  - `Shuffler` (réordonne le jeu reçu, tire les positions du chien) et
+    `DealerDraw` (premier donneur), définis par `application` ←
+    `RandChance` (`infrastructure`) implémente les deux, sur la crate `rand`
+    0.10.3 (crates.io, publiée le 2026-09-20 ; docs.rs : `rand::rng`,
+    `rand::seq::SliceRandom`, `rand::seq::index::sample`,
+    `rand::random_range`).
+  - `DealRepository` (défini par `application`), qui range et rend la donne
+    en cours ← `InMemoryDealRepository` (`infrastructure`).
+- **Interface terminal** : `println!`. Appelle `StartGame`, puis
+  `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
+  d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
+  et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,
+  appelle en plus `ObserveTable`.
+- **Forme de la tranche** : le binaire construit les adaptateurs et les
+  handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
+  `DealInBidding` → `DealRepository` ; puis handler `ObserveSeat` →
+  `DealRepository` → `Observation` → `SeatObservation` rendue par le
+  terminal.
 - **Tests** :
   - `hwanjile-application/tests/distribution.rs` : scénarios 1 (main, place,
     donneur), 2 (jeu complet) et 3 (extrémités hors du chien, avec une
-    doublure qui place le chien au plus près des extrémités), par des
-    doublures de `Shuffler` et `DealerDraw` écrites à la main.
+    doublure qui ordonne le jeu et place le chien au plus près des
+    extrémités), par les handlers, avec des doublures de `Shuffler`,
+    `DealerDraw` et `DealRepository` écrites à la main.
   - `hwanjile-domain` : refus d'un paquet incomplet, refus de positions
     contraires à R1, tests propres à `Card` et `Seat`.
   - `hwanjile-infrastructure` : `RandChance` rend le jeu reçu, réordonné,
-    et des positions conformes à R1.
+    et des positions conformes à R1 ; `InMemoryDealRepository` rend ce
+    qu'on y a rangé.
   - Binaire : rangement de la main dans ses modules ; scénario 4 dans
     `hwanjile-terminal/tests/`, qui lance l'exécutable avec `--debug`
     (`CARGO_BIN_EXE_<name>`).
 - **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
 - **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,
-  `DealInBidding`, `Observation`, `DebugObservation`, `Shuffler`,
-  `DealerDraw`, `OpenDeal`, `StartGame`, `RandChance` ; consomme rien.
+  `Deal`, `DealInBidding`, `Observation`, `DebugObservation`, `Shuffler`,
+  `DealerDraw`, `DealRepository`, `OpenDeal`, `StartGame`, `ObserveSeat`,
+  `ObserveTable`, `SeatObservation`, `TableObservation`, `RandChance`,
+  `InMemoryDealRepository` ; consomme rien.
