@@ -19,13 +19,12 @@ donne et par où passent commandes et lectures.
 - Les handlers ne gardent pas d'état. Ils chargent et rangent la phase
   courante de la donne par un port de dépôt, défini par l'application et
   implémenté en mémoire par l'infrastructure.
-- Commandes, requêtes et modèles de lecture portent des valeurs de
-  l'application, jamais des types du domaine. Le handler de commande
-  reconstruit les valeurs du domaine ; le handler de lecture traduit
-  l'`Observation` en modèle de lecture.
-- Un handler de lecture passe par l'agrégat : ce qu'un siège a le droit de
-  voir est une règle du domaine (ADR-0002), qu'une lecture directe du
-  stockage contournerait.
+- Commandes, requêtes, modèles de lecture et erreurs rendues à l'interface
+  sont des types définis par l'application, jamais des types du domaine. Le
+  handler de commande reconstruit les valeurs du domaine ; le handler de
+  lecture traduit l'`Observation` en modèle de lecture.
+- Un handler de lecture passe par l'agrégat, ce qui s'écarte de la position
+  par défaut de `cqrs.md` (les requêtes ne passent pas par les agrégats).
 
 ## Alternatives considérées
 - **Le terminal tient la phase et la lit directement.** Rejetée : l'interface
@@ -34,9 +33,13 @@ donne et par où passent commandes et lectures.
 - **Bus de commandes et de requêtes.** Rejetée : un bus découple l'émetteur du
   traitement et porte des préoccupations transverses (transaction,
   asynchronisme) ; aucune n'existe ici.
+- **Requêtes qui lisent le stockage sans passer par l'agrégat.** Rejetée : ce
+  qu'un siège a le droit de voir est une règle du domaine (ADR-0002), qu'une
+  lecture directe contournerait.
 - **Requêtes qui rendent l'`Observation` du domaine.** Rejetée : l'interface
-  dépendrait du domaine, et la frontière ne serait plus gardée par Cargo
-  (ADR-0006).
+  manipulerait des types du domaine. Cargo empêche le terminal de nommer un
+  type du domaine (ADR-0006), pas d'en recevoir un par une signature de
+  l'application : cette absence se vérifie en relecture.
 
 ## Conséquences
 - La garantie de compilation du typestate s'arrête à l'application : une

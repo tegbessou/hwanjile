@@ -43,3 +43,7 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | donne en cours, rangée | `DealRepository` | choisi |
 | ce que voit un siège, côté application | `SeatObservation` | choisi |
 | ce que montre la vue debug, côté application | `TableObservation` | choisi |
+| commencer la partie | `StartGame` | choisi |
+| ouvrir une donne | `OpenDeal` | choisi |
+| voir ce que voit un siège | `ObserveSeat` | choisi |
+| voir toute la table (debug) | `ObserveTable` | choisi |

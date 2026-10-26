@@ -70,8 +70,8 @@ L'échange de l'excuse et l'excuse au dernier pli comptent pour le décompte
 Partie domaine :
 - **Bounded context** : Tarot (unique).
 - **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
-- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
-  chaque action.
+- **Domain events** : aucun dans #001 ; après chaque action, le terminal
+  demande la vue du siège par une requête (ADR-0005).
 - **Introduit** : VO `Trick`. Phase de jeu ; la donne expose les coups légaux du
   siège qui doit jouer. Hors agrégat : politique de jeu du bot (R14).
 - **Consomme** : `Card`, `Seat`, `Hand`, `Contract`.

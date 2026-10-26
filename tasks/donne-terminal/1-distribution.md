@@ -38,15 +38,17 @@ Petit sec et enchères (task 2).
 Partie domaine :
 - **Bounded context** : Tarot (unique).
 - **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
-- **Domain events** : aucun dans #001 ; le terminal lit l'`Observation` du
-  siège après chaque action.
+- **Domain events** : aucun dans #001 ; après chaque action, le terminal
+  demande l'`Observation` du siège par une requête (ADR-0005).
 - **Introduit** : VO `Card` (couleur et rang, atout 1 à 21, excuse ; valeur,
   bout), `Seat` (ordre du jeu), `Hand`, `Kitty`. Le domaine fournit le jeu
   complet. `DealInBidding`, première phase de `Deal`, est construite depuis
   ce jeu réordonné, les positions du chien et le donneur reçus de
   l'extérieur (le hasard reste hors du domaine). Une position du chien
   désigne un intervalle entre deux des 24 paquets de trois (1 à 23) ; six
-  positions distinctes, une carte par intervalle (R1). La construction
+  positions distinctes, une carte par intervalle (R1 dit « une à une » ;
+  une seule carte par intervalle est un choix du projet, appuyé sur
+  regles-du-jeu.net, le règlement FFT n'ayant pas pu être relu). La construction
   refuse un paquet qui n'est pas le jeu complet (78 cartes, chacune une
   fois) et des positions hors de ces bornes ou répétées.
 - **Lecture** : `Observation`, ce qu'un siège connaît de la donne ;
@@ -73,8 +75,9 @@ Partie technique :
     `SeatObservation`.
   - Requête `ObserveTable` et son handler : même chemin pour la
     `DebugObservation`, traduite en `TableObservation`.
-  - Commandes, requêtes et modèles de lecture portent des valeurs de
-    l'application pour le siège et la carte, jamais des types du domaine.
+  - Commandes, requêtes, modèles de lecture et erreurs rendues au terminal
+    sont des types définis par l'application, jamais des types du domaine ;
+    vérifié en relecture, Cargo ne gardant que l'import (ADR-0005).
   - Pas de bus : le terminal appelle les handlers.
 - **Ports & adaptateurs** :
   - `Shuffler` (réordonne le jeu reçu, tire les positions du chien) et
@@ -83,15 +86,18 @@ Partie technique :
     0.10.3 (crates.io, publiée le 2026-09-20 ; docs.rs : `rand::rng`,
     `rand::seq::SliceRandom`, `rand::seq::index::sample`,
     `rand::random_range`).
-  - `DealRepository` (défini par `application`), qui range et rend la donne
-    en cours ← `InMemoryDealRepository` (`infrastructure`).
+  - `DealRepository` (défini par `application`) ← `InMemoryDealRepository`
+    (`infrastructure`). Un handler de commande reprend la donne en cours en
+    pleine propriété, pour en consommer la phase, puis range la suivante ; un
+    handler de lecture l'emprunte. Sans donne en cours, une requête rend une
+    erreur de l'application.
 - **Interface terminal** : `println!`. Appelle `StartGame`, puis
   `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
   d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
   et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,
   appelle en plus `ObserveTable`.
-- **Forme de la tranche** : le binaire construit les adaptateurs et les
-  handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
+- **Forme de la tranche** : le binaire construit les adaptateurs, `OpenDeal`
+  et les handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
   `DealInBidding` → `DealRepository` ; puis handler `ObserveSeat` →
   `DealRepository` → `Observation` → `SeatObservation` rendue par le
   terminal.

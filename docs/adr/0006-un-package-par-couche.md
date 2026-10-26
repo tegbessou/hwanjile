@@ -17,7 +17,8 @@ Un workspace Cargo, un package par couche, à plat sous `crates/` :
 `hwanjile-application` qui dépend du domaine, `hwanjile-infrastructure` qui
 dépend des deux, et le binaire `hwanjile-terminal`, qui dépend de
 l'application et de l'infrastructure mais pas du domaine (ADR-0005). Un
-import contraire au sens des couches ne compile pas.
+import contraire au sens des couches ne compile pas ; un type reçu par une
+signature, lui, n'est pas arrêté par Cargo (ADR-0005).
 
 ## Alternatives considérées
 - **Un package bibliothèque + binaire, sens gardé par la relecture.**
@@ -38,7 +39,3 @@ import contraire au sens des couches ne compile pas.
 ## Sources
 - Cargo Book, « Workspaces ».
 - Aleksey Kladov (matklad), « Large Rust Workspaces », 2021-08-22.
-- « One port, three client crates — a hexagonal Rust ingester », DEV
-  Community,
-  https://dev.to/lhadhazy/one-port-three-client-crates-a-hexagonal-rust-ingester-30ce :
-  la frontière gardée par le graphe des packages.
