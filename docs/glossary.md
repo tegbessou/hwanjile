@@ -9,7 +9,7 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | --- | --- | --- |
 | donne | `Deal` | pagat |
 | donneur | dealer | pagat |
-| paquet | deck | choisi |
+| paquet | deck | pagat |
 | carte | `Card` | pagat |
 | main | `Hand` | pagat |
 | chien | `Kitty` | pagat |
@@ -27,12 +27,15 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | prise, garde, garde sans | `Take`, `Guard`, `GuardWithout` | pagat |
 | preneur | taker | pagat |
 | défense | defence | choisi |
-| camp | `Side` | choisi |
-| écart | `Discard` | choisi |
+| camp | `Side` | pagat |
+| écart | `Discard` | pagat |
 | pli | `Trick` | pagat |
 | marque | `Score` | pagat |
 | chelem | slam | pagat |
 | petit au bout | petit au bout | pagat |
 | phases de la donne | `DealInBidding`, `DealInDiscard`, `DealInPlay` | choisi |
-| ce qu'un siège connaît de la donne | `Observation` | choisi |
-| tirage du hasard de la donne | `Shuffler` | choisi |
+| vue du siège (ce qu'un siège connaît de la donne) | `Observation` | choisi |
+| vue debug | `DebugObservation` | choisi |
+| positions du chien | kitty positions | choisi |
+| mélange du paquet et positions du chien | `Shuffler` | choisi |
+| tirage du premier donneur | `DealerDraw` | choisi |
