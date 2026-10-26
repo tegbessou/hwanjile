@@ -9,8 +9,9 @@ R1, R15 (place et donneur).
 - *Scénario : ma main est distribuée*
   - Given une nouvelle donne
   - When le jeu est distribué
-  - Then je vois mes 18 cartes, rangées par couleur puis par force, ma place
-    (Sud) et le donneur tiré au hasard
+  - Then je vois mes 18 cartes, ma place (Sud) et le donneur tiré au hasard ;
+    les cartes sont rangées atouts du 21 au 1, puis l'excuse, puis pique,
+    cœur, carreau et trèfle, chaque couleur du roi à l'as
 - *Scénario : le jeu est complet*
   - Given une donne distribuée
   - When on réunit les quatre mains et le chien
@@ -36,12 +37,87 @@ Petit sec et enchères (task 2).
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
-- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
-  chaque action.
-- **Introduit** : VO `Carte` (couleur et rang, atout 1 à 21, excuse ; valeur,
-  bout), `Siège` (ordre du jeu), `Main`, `Chien`. Première phase de `Donne`,
-  construite depuis un paquet déjà mélangé et les positions du chien reçus de
-  l'extérieur (le hasard reste hors du domaine). Vue par siège, et vue debug.
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; après chaque action, le terminal
+  demande l'`Observation` du siège par une requête (ADR-0005).
+- **Introduit** : VO `Card` (couleur et rang, atout 1 à 21, excuse ; valeur,
+  bout), `Seat` (ordre du jeu), `Hand`, `Kitty`. Le domaine fournit le jeu
+  complet. `DealInBidding`, première phase de `Deal`, est construite depuis
+  ce jeu réordonné, les positions du chien et le donneur reçus de
+  l'extérieur (le hasard reste hors du domaine). Une position du chien
+  désigne un intervalle entre deux des 24 paquets de trois (1 à 23) ; six
+  positions distinctes, une carte par intervalle (R1 dit « une à une » ;
+  une seule carte par intervalle est un choix du projet, appuyé sur
+  regles-du-jeu.net, le règlement FFT n'ayant pas pu être relu). La construction
+  refuse un paquet qui n'est pas le jeu complet (78 cartes, chacune une
+  fois) et des positions hors de ces bornes ou répétées.
+- **Lecture** : `Observation`, ce qu'un siège connaît de la donne ;
+  `DebugObservation`, les quatre mains et le chien. Les actions consomment la
+  phase, les lectures ne la modifient pas. `Deal` est l'enum des phases
+  (ADR-0003), ce que range le dépôt.
 
-Partie technique : _(remplie par `technical-plan`)_
+Partie technique :
+- **Packages** : workspace d'un package par couche ; ADR-0006,
+  `rust-structure`. `hwanjile-domain`, `hwanjile-application`,
+  `hwanjile-infrastructure`, et le binaire `hwanjile-ui`, composition
+  root, qui ne dépend pas de `hwanjile-domain`.
+- **Application** (ADR-0005) :
+  - Commande `StartGame` et son handler : tire le premier donneur par
+    `DealerDraw`, ouvre la donne par `OpenDeal`, range le `Deal` par le
+    dépôt.
+  - `OpenDeal`, générique sur `S: Shuffler`, partagé entre handlers : reçoit
+    le donneur, fait réordonner le jeu complet par le port, obtient les
+    positions du chien et construit `DealInBidding` ; il rend une erreur si
+    la construction refuse. La redistribution de la task 2 le rappellera
+    avec le donneur connu (R15).
+  - Requête `ObserveSeat` et son handler : charge le `Deal`, demande
+    l'`Observation` du siège, la traduit en modèle de lecture
+    `SeatObservation`.
+  - Requête `ObserveTable` et son handler : même chemin pour la
+    `DebugObservation`, traduite en `TableObservation`.
+  - Commandes, requêtes, modèles de lecture et erreurs rendues au terminal
+    sont des types définis par l'application, jamais des types du domaine ;
+    vérifié en relecture, Cargo ne gardant que l'import (ADR-0005).
+  - Pas de bus : le terminal appelle les handlers.
+- **Ports & adaptateurs** :
+  - `Shuffler` (réordonne le jeu reçu, tire les positions du chien) et
+    `DealerDraw` (premier donneur), définis par `application` ←
+    `RandChance` (`infrastructure`) implémente les deux, sur la crate `rand`
+    0.10.3 (crates.io, publiée le 2026-09-20 ; docs.rs : `rand::rng`,
+    `rand::seq::SliceRandom`, `rand::seq::index::sample`,
+    `rand::random_range`).
+  - `DealRepository` (défini par `application`) ← `InMemoryDealRepository`
+    (`infrastructure`). Un handler de commande reprend la donne en cours en
+    pleine propriété, pour en consommer la phase, puis range la suivante ; un
+    handler de lecture l'emprunte. Sans donne en cours, une requête rend une
+    erreur de l'application.
+- **Interface terminal** : `println!`. Appelle `StartGame`, puis
+  `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
+  d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
+  et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,
+  appelle en plus `ObserveTable`.
+- **Forme de la tranche** : le binaire construit les adaptateurs, `OpenDeal`
+  et les handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
+  `DealInBidding` → `DealRepository` ; puis handler `ObserveSeat` →
+  `DealRepository` → `Observation` → `SeatObservation` rendue par le
+  terminal.
+- **Tests** :
+  - `hwanjile-application/tests/distribution.rs` : scénarios 1 (main, place,
+    donneur), 2 (jeu complet) et 3 (extrémités hors du chien, avec une
+    doublure qui ordonne le jeu et place le chien au plus près des
+    extrémités), par les handlers, avec des doublures de `Shuffler`,
+    `DealerDraw` et `DealRepository` écrites à la main.
+  - `hwanjile-domain` : refus d'un paquet incomplet, refus de positions
+    contraires à R1, tests propres à `Card` et `Seat`.
+  - `hwanjile-infrastructure` : `RandChance` rend le jeu reçu, réordonné,
+    et des positions conformes à R1 ; `InMemoryDealRepository` rend ce
+    qu'on y a rangé.
+  - Binaire : rangement de la main dans ses modules ; scénario 4 dans
+    `hwanjile-ui/tests/`, qui lance l'exécutable avec `--debug`
+    (`CARGO_BIN_EXE_<name>`).
+- **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
+- **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,
+  `Deal`, `DealInBidding`, `Observation`, `DebugObservation`, `Shuffler`,
+  `DealerDraw`, `DealRepository`, `OpenDeal`, `StartGame`, `ObserveSeat`,
+  `ObserveTable`, `SeatObservation`, `TableObservation`, `RandChance`,
+  `InMemoryDealRepository` ; consomme rien.

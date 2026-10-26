@@ -2,7 +2,7 @@
 
 ## #001 — Donne complète en terminal
 - **Ouvert le** : 2026-10-20
-- **Dernière touche** : 2026-10-23
+- **Dernière touche** : 2026-10-26
 - **Échéance** : —
 - **Contexte** : Projet d'apprentissage de Rust par curiosité : un tarot à
   quatre, moi contre trois bots, contrats prise / garde / garde sans, sans
@@ -16,8 +16,7 @@
   d'ownership ni de modélisation.
 - **Rôles** : j'écris le code de production ; Teg tient le design, les tests
   rouges et la relecture (ADR-0001).
-- **Prochaine action** : cinquième revue de la PR #1, puis
-  `technical-plan` de la task 1
+- **Prochaine action** : `tdd-loop` de la task 1
 - **Spec** : `product/donne-terminal.md`
 - **Notes** :
   - 2026-10-20 — problème validé en phase 1
@@ -26,7 +25,7 @@
   - 2026-10-21 — phase 2 close, référence : règlement FFT « Donnes libres » ;
     spec rédigée
   - 2026-10-21 — spec validée, découpée en 6 tasks, toutes produit-prêtes
-  - 2026-10-21 — domaine modélisé : `Donne` agrégat unique en typestate, pas
+  - 2026-10-21 — domaine modélisé : `Deal` agrégat unique en typestate, pas
     de domain event ; ADR-0001 à 0003 acceptés
   - 2026-10-22 — revue PR #1 : R12 réécrite (défense ou preneur sans pli),
     R15 table et R16 pli ajoutées, écart validé d'un bloc, excuse du chelem
@@ -38,3 +37,11 @@
   - 2026-10-23 — troisième et quatrième revues : la défense garde l'excuse en
     chelem même jouée au dernier pli, à condition que le preneur remporte les
     18 plis (R8)
+  - 2026-10-26 — PR #1 mergée sans cinquième revue ; code en anglais
+    (ADR-0004, glossaire) ; plan technique de la task 1 posé
+  - 2026-10-26 — deux revues de la PR #2 : paquet complet exigé par le
+    domaine, donneur sorti du `Shuffler` (`DealerDraw`), un package par couche
+    (ADR-0006), séparation commandes / lectures sans bus (ADR-0005)
+  - 2026-10-26 — ADR-0005 réécrit : handlers de commande et de lecture,
+    donne rangée par un dépôt, modèles de lecture de l'application ; le
+    terminal ne dépend plus du domaine

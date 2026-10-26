@@ -1,8 +1,9 @@
 # ADR-0003 — Cycle de vie de la donne en typestate
 
-- Statut : accepté
+- Statut : accepté ; conséquence sur la boucle du terminal remplacée par
+  ADR-0005
 - Date : 2026-10-23
-- Portée : contexte Tarot, agrégat `Donne`
+- Portée : contexte Tarot, agrégat `Deal`
 
 ## Contexte et problème
 Une donne traverse des phases dont chacune autorise des actions différentes :
@@ -11,8 +12,8 @@ carte pendant les plis. Il faut décider si le respect de ces phases est vérifi
 à la compilation ou à l'exécution.
 
 ## Décision
-Chaque phase est un type distinct, par exemple `DonneEnEnchères`,
-`DonneEnÉcart`, `DonneEnJeu`. Une action consomme la phase courante et rend la
+Chaque phase est un type distinct, par exemple `DealInBidding`,
+`DealInDiscard`, `DealInPlay`. Une action consomme la phase courante et rend la
 suivante. Jouer une carte pendant les enchères ne compile pas.
 
 ## Alternatives considérées

@@ -49,14 +49,14 @@ jeu.
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
-- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
-  chaque action.
-- **Introduit** : VO `Annonce`, `Contrat` (avec coefficient). Phase des
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; après chaque action, le terminal
+  demande la vue du siège par une requête (ADR-0005).
+- **Introduit** : VO `Bid`, `Contract` (avec coefficient). Phase des
   enchères, dont l'issue est un enum : donne annulée, ou preneur désigné.
   Hors agrégat : politique d'enchère du bot (R13), à partir de la vue de son
   siège.
-- **Consomme** : `Carte`, `Siège`, `Main`.
+- **Consomme** : `Card`, `Seat`, `Hand`.
 
 - **À reprendre au plan technique** : une action refusée (annonce trop basse)
   rend la phase avec le refus, pour que je reparle sur la même donne

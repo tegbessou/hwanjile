@@ -61,12 +61,12 @@ Petit au bout (task 6).
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
-- **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
-  chaque action.
-- **Introduit** : VO `Camp`, `Points` (au demi-point près ; l'excuse vaut
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Domain events** : aucun dans #001 ; après chaque action, le terminal
+  demande la vue du siège par une requête (ADR-0005).
+- **Introduit** : VO `Side`, `Points` (au demi-point près ; l'excuse vaut
   4 dans les cas de R8 et R12),
-  `Marque`. Fin de donne.
-- **Consomme** : `Pli`, `Écart`, `Chien`, `Contrat`.
+  `Score`. Fin de donne.
+- **Consomme** : `Trick`, `Discard`, `Kitty`, `Contract`.
 
 Partie technique : _(remplie par `technical-plan`)_
