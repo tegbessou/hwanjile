@@ -59,7 +59,7 @@ Partie domaine :
 Partie technique :
 - **Packages** : workspace d'un package par couche ; ADR-0006,
   `rust-structure`. `hwanjile-domain`, `hwanjile-application`,
-  `hwanjile-infrastructure`, et le binaire `hwanjile-terminal`, composition
+  `hwanjile-infrastructure`, et le binaire `hwanjile-ui`, composition
   root, qui ne dépend pas de `hwanjile-domain`.
 - **Application** (ADR-0005) :
   - Commande `StartGame` et son handler : tire le premier donneur par
@@ -113,7 +113,7 @@ Partie technique :
     et des positions conformes à R1 ; `InMemoryDealRepository` rend ce
     qu'on y a rangé.
   - Binaire : rangement de la main dans ses modules ; scénario 4 dans
-    `hwanjile-terminal/tests/`, qui lance l'exécutable avec `--debug`
+    `hwanjile-ui/tests/`, qui lance l'exécutable avec `--debug`
     (`CARGO_BIN_EXE_<name>`).
 - **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
 - **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,

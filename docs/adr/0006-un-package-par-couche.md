@@ -15,7 +15,7 @@ sens des dépendances.
 Un workspace Cargo, un package par couche, à plat sous `crates/` :
 `hwanjile-domain` sans dépendance vers une autre couche,
 `hwanjile-application` qui dépend du domaine, `hwanjile-infrastructure` qui
-dépend des deux, et le binaire `hwanjile-terminal`, qui dépend de
+dépend des deux, et le binaire `hwanjile-ui`, qui dépend de
 l'application et de l'infrastructure mais pas du domaine (ADR-0005). Un
 import contraire au sens des couches ne compile pas ; un type reçu par une
 signature, lui, n'est pas arrêté par Cargo (ADR-0005).
