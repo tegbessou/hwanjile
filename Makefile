@@ -26,7 +26,8 @@ clippy:
 	cargo clippy --workspace --all-targets -- -D warnings
 
 public-api:
-	@if cargo public-api --toolchain $(NIGHTLY) --package hwanjile-application | grep hwanjile_domain; then \
+	@api=$$(cargo +$(NIGHTLY) public-api --package hwanjile-application) || exit 1; \
+	if echo "$$api" | grep hwanjile_domain; then \
 		echo "hwanjile-application expose un type du domaine (ADR-0005)"; \
 		exit 1; \
 	fi
