@@ -45,10 +45,10 @@ Rien.
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
 - **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
   chaque action.
-- **Introduit** : rien de nouveau ; la prime s'ajoute au calcul de `Marque`.
-- **Consomme** : `Pli`, `Camp`, `Marque`.
+- **Introduit** : rien de nouveau ; la prime s'ajoute au calcul de `Score`.
+- **Consomme** : `Trick`, `Side`, `Score`.
 
 Partie technique : _(remplie par `technical-plan`)_

@@ -48,12 +48,12 @@ Le décompte de l'écart et du chien pour le preneur (task 5).
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
 - **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
   chaque action.
-- **Introduit** : VO `Écart`. Phase d'écart entre enchères et jeu, sautée en
+- **Introduit** : VO `Discard`. Phase d'écart entre enchères et jeu, sautée en
   garde sans. Hors agrégat : écart du bot (R14).
-- **Consomme** : `Carte`, `Main`, `Chien`, `Contrat`.
+- **Consomme** : `Card`, `Hand`, `Kitty`, `Contract`.
 
 - **Note** : l'écart se valide d'un bloc ; la règle d'atout ne se juge que
   sur les 6 cartes proposées ensemble.

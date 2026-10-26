@@ -15,3 +15,4 @@ rouges et relit (ADR-0001). Teg n'écrit jamais le code de production à sa plac
 - Suivi : `tracking/hwanjile.md`
 - Spec : `product/donne-terminal.md`, tasks dans `tasks/donne-terminal/`
 - Décisions : `docs/adr/`
+- Glossaire : `docs/glossary.md` ; le code est en anglais (ADR-0004)

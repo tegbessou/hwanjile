@@ -69,11 +69,11 @@ L'échange de l'excuse et l'excuse au dernier pli comptent pour le décompte
 ## Plan technique
 Partie domaine :
 - **Bounded context** : Tarot (unique).
-- **Agrégat** : `Donne`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
+- **Agrégat** : `Deal`, racine ; ADR-0002. Phases en typestate ; ADR-0003.
 - **Domain events** : aucun dans #001 ; le terminal lit la vue du siège après
   chaque action.
-- **Introduit** : VO `Pli`. Phase de jeu ; la donne expose les coups légaux du
+- **Introduit** : VO `Trick`. Phase de jeu ; la donne expose les coups légaux du
   siège qui doit jouer. Hors agrégat : politique de jeu du bot (R14).
-- **Consomme** : `Carte`, `Siège`, `Main`, `Contrat`.
+- **Consomme** : `Card`, `Seat`, `Hand`, `Contract`.
 
 Partie technique : _(remplie par `technical-plan`)_

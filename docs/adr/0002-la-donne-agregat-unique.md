@@ -11,7 +11,7 @@ chien, la marque (R9 à R12) des plis, de l'écart et du contrat. Il faut décid
 où passe la frontière de cohérence.
 
 ## Décision
-`Donne` est l'unique agrégat du sujet, et sa racine. Il porte enchères, chien,
+`Deal` est l'unique agrégat du sujet, et sa racine. Il porte enchères, chien,
 écart, plis et marque. Les bots restent hors de l'agrégat : ils décident à
 partir de la vue de leur siège et des coups légaux qu'elle expose.
 
