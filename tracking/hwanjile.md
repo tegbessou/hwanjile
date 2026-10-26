@@ -39,3 +39,6 @@
     18 plis (R8)
   - 2026-10-26 — PR #1 mergée sans cinquième revue ; code en anglais
     (ADR-0004, glossaire) ; plan technique de la task 1 posé
+  - 2026-10-26 — deux revues de la PR #2 : paquet complet exigé par le
+    domaine, donneur sorti du `Shuffler` (`DealerDraw`), un package par couche
+    (ADR-0006), séparation commandes / lectures sans bus (ADR-0005)

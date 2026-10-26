@@ -26,7 +26,7 @@ ADR restent en français.
 ## Conséquences
 - La spec et le code ne parlent plus la même langue : le glossaire devient le
   pont obligatoire, et un terme traduit deux fois différemment est un défaut.
-- Certains termes n'ont pas d'équivalent établi (écart, camp, défense) : leur
+- Certains termes n'ont pas d'équivalent établi (contrat, siège, défense) : leur
   traduction est un choix du projet, signalé comme tel dans le glossaire.
 - Les noms de code cités dans les ADR et les plans des tasks sont en anglais.
 

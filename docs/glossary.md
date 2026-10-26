@@ -22,7 +22,7 @@ Source : pagat.com, « French Tarot », sauf mention « choisi ».
 | excuse | `Excuse` | pagat |
 | petit | `Petit` | pagat |
 | bout | `Oudler` | pagat |
-| annonce | `Bid` | choisi |
+| annonce | `Bid` | pagat |
 | contrat | `Contract` | choisi |
 | prise, garde, garde sans | `Take`, `Guard`, `GuardWithout` | pagat |
 | preneur | taker | pagat |

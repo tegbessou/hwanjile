@@ -38,4 +38,6 @@ sens des couches ne compile pas.
 - Cargo Book, « Workspaces ».
 - Aleksey Kladov (matklad), « Large Rust Workspaces », 2021-08-22.
 - « One port, three client crates — a hexagonal Rust ingester », DEV
-  Community : la frontière gardée par le graphe des packages.
+  Community,
+  https://dev.to/lhadhazy/one-port-three-client-crates-a-hexagonal-rust-ingester-30ce :
+  la frontière gardée par le graphe des packages.

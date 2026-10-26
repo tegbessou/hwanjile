@@ -59,8 +59,8 @@ Partie technique :
   - `OpenDeal`, générique sur `S: Shuffler`, reçoit le donneur, obtient le
     tirage du port et construit `DealInBidding`. La redistribution de la
     task 2 le rappellera avec le donneur connu (R15).
-  - `StartGame`, générique sur `D: DealerDraw`, tire le premier donneur et
-    ouvre la donne par `OpenDeal`.
+  - `StartGame`, générique sur `D: DealerDraw` et `S: Shuffler`, détient un
+    `OpenDeal<S>` ; il tire le premier donneur et ouvre la donne.
   - Pas de bus ni de handlers ; ADR-0005.
 - **Ports & adaptateurs** : `Shuffler` (paquet mélangé et positions du
   chien) et `DealerDraw` (premier donneur), définis par `application` ←
@@ -72,7 +72,7 @@ Partie technique :
   range la main dans l'ordre du critère d'acceptation, règle d'affichage
   portée par l'interface ; `--debug`, lu par `std::env::args`, affiche en
   plus la `DebugObservation`.
-- **Forme de la tranche** : le binaire construit `RandShuffler` et
+- **Forme de la tranche** : le binaire construit l'adaptateur, `OpenDeal` et
   `StartGame` → `StartGame` → `DealerDraw`, puis `OpenDeal` → `Shuffler` →
   `DealInBidding` → `Observation` rendue par le terminal.
 - **Tests** :
@@ -84,7 +84,9 @@ Partie technique :
     contraires à R1, tests propres à `Card` et `Seat`.
   - `hwanjile-infrastructure` : `RandShuffler` rend le jeu complet et des
     positions conformes à R1.
-  - Binaire, dans ses modules : rangement de la main, scénario 4 (`--debug`).
+  - Binaire : rangement de la main dans ses modules ; scénario 4 dans
+    `hwanjile-terminal/tests/`, qui lance l'exécutable avec `--debug`
+    (`CARGO_BIN_EXE_<name>`).
 - **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
 - **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,
   `DealInBidding`, `Observation`, `DebugObservation`, `Shuffler`,

@@ -6,30 +6,35 @@
 
 ## Contexte et problème
 La posture de référence retient CQRS au niveau moyen : commandes et requêtes
-séparées, traitées par des handlers distincts sur des bus. Hwanjile tourne dans
-un seul processus, sans persistance ni concurrence, et l'état d'une donne tient
-dans un seul agrégat (ADR-0002). Il faut décider ce qu'on garde de CQRS.
+distinctes, orchestrées par la couche application, sans que la séparation
+soit infrastructurelle. Dans Hwanjile, la boucle du terminal tient la phase
+courante de la donne (ADR-0003), et il n'existe ni stockage ni read model
+d'où lire. Il faut décider où passe la séparation.
 
 ## Décision
 La séparation commandes / lectures est tenue dans l'agrégat : une action
 consomme la phase et rend la suivante (ADR-0003), une lecture
 (`Observation`, `DebugObservation`) ne modifie rien. La couche application
-expose des services appelés directement, sans bus ni handlers, et il n'y a
-pas de read model distinct.
+expose les cas d'usage qui ouvrent ou font avancer une donne ; les lectures se
+font sur la phase que tient le terminal, sans service de lecture. Pas de bus.
 
 ## Alternatives considérées
-- **CQRS de la posture, avec bus et handlers.** Rejetée : un bus sert à
-  découpler l'émetteur du traitement et à porter des préoccupations
-  transverses (transaction, asynchronisme) ; aucune n'existe ici.
+- **Services de commande et de lecture distincts dans l'application.**
+  Rejetée pour les lectures : sans stockage, un service de lecture ne ferait
+  que relayer l'appel à la phase que le terminal tient déjà.
+- **Bus de commandes et de requêtes.** Rejetée : un bus découple l'émetteur du
+  traitement et porte des préoccupations transverses (transaction,
+  asynchronisme) ; aucune n'existe ici.
 - **Aucune séparation.** Rejetée : une lecture qui modifierait la donne
   rendrait l'`Observation` d'un bot capable d'altérer la partie, ce que
   ADR-0002 exclut.
 
 ## Conséquences
+- Le terminal lit directement le domaine, sans passer par l'application.
 - Le jour où #002 introduit un serveur ou plusieurs parties en parallèle, la
-  question du bus se repose.
+  donne devra être stockée et la question d'un service de lecture se repose.
 - La séparation repose sur les signatures (consommer `self` ou l'emprunter)
-  et non sur une structure dédiée.
+  et non sur une structure dédiée : c'est le niveau CQS.
 
 ## Sources
 - `knowledge/posture-architecturale.md` du dispositif Teg, section CQRS.
