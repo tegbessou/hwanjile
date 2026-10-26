@@ -1,0 +1,42 @@
+.PHONY: install unit-test integration-test format-check format-fix clippy public-api deps-check quality
+
+## Tools
+NIGHTLY = nightly-2026-10-25
+
+install:
+	rustup install
+	rustup toolchain install $(NIGHTLY) --profile minimal
+	cargo install --locked cargo-deny@0.20.2 cargo-machete@0.9.2 cargo-public-api@0.52.0 cargo-insta@1.49.0
+
+## Tests
+unit-test:
+	cargo test --workspace --lib --bins
+
+integration-test:
+	cargo test --workspace --test '*'
+
+## Quality
+format-check:
+	cargo fmt --all --check
+
+format-fix:
+	cargo fmt --all
+
+clippy:
+	cargo clippy --workspace --all-targets -- -D warnings
+
+public-api:
+	@if cargo public-api --toolchain $(NIGHTLY) --package hwanjile-application | grep hwanjile_domain; then \
+		echo "hwanjile-application expose un type du domaine (ADR-0005)"; \
+		exit 1; \
+	fi
+	@if grep --recursive --line-number "pub use hwanjile_domain" crates/hwanjile-application/src; then \
+		echo "hwanjile-application réexporte un type du domaine (ADR-0005)"; \
+		exit 1; \
+	fi
+
+deps-check:
+	cargo deny check
+	cargo machete
+
+quality: format-check clippy public-api deps-check
