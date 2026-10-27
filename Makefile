@@ -6,7 +6,7 @@ NIGHTLY = nightly-2026-10-25
 install:
 	rustup install
 	rustup toolchain install $(NIGHTLY) --profile minimal
-	cargo install --locked cargo-deny@0.20.2 cargo-machete@0.9.2 cargo-public-api@0.52.0 cargo-insta@1.49.0
+	cargo install --locked cargo-deny@0.20.2 cargo-machete@0.9.2 cargo-public-api@0.52.0
 
 ## Tests
 unit-test:
@@ -31,8 +31,8 @@ public-api:
 		echo "hwanjile-application expose un type du domaine (ADR-0005)"; \
 		exit 1; \
 	fi
-	@if grep --recursive --line-number "pub use hwanjile_domain" crates/hwanjile-application/src; then \
-		echo "hwanjile-application réexporte un type du domaine (ADR-0005)"; \
+	@if grep --recursive --line-number --extended-regexp "pub use " crates/hwanjile-application/src | grep --invert-match --extended-regexp "pub use (crate|self|super)::"; then \
+		echo "hwanjile-application réexporte un élément hors de sa crate (ADR-0005)"; \
 		exit 1; \
 	fi
 

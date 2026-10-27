@@ -26,6 +26,6 @@ rouges et relit (ADR-0001). Teg n'écrit jamais le code de production à sa plac
   datée pour `cargo-public-api`) et outils Cargo
 - `make unit-test`, `make integration-test`
 - `make quality` : formatage, Clippy en `-D warnings`, frontière de
-  l'application (`public-api`, ADR-0005), dépendances (`cargo-deny`,
-  `cargo-machete`)
+  l'application (`public-api`, ADR-0005), dépendances (`cargo-deny`, qui
+  refuse aussi `hwanjile-domain` dans `hwanjile-ui`, et `cargo-machete`)
 - Lancer le jeu : `cargo run --package hwanjile-ui`

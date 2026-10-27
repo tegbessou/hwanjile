@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
 
-      - uses: actions/cache@v6.1.0
-        with:
-          path: ~/.cargo/bin
-          key: cargo-tools-${{ runner.os }}-${{ hashFiles('Makefile', 'rust-toolchain.toml') }}
-
       - uses: Swatinem/rust-cache@v2.9.2
 
       - run: make install
