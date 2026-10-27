@@ -2,8 +2,9 @@
 
 - Statut : accepté
 - Date : 2026-10-27
-- Portée : projet Hwanjile, tout le code ; remplace ADR-0006, et ADR-0007
-  sur la vérification `public-api` et la dépendance de l'infrastructure
+- Portée : projet Hwanjile, tout le code ; remplace ADR-0006, ADR-0005 sur
+  la garde de la frontière par Cargo, et ADR-0007 sur la vérification
+  `public-api` et la dépendance de l'infrastructure
 
 ## Contexte et problème
 ADR-0006 a posé un package par couche pour que le compilateur garde le sens
@@ -18,20 +19,20 @@ structure, et de ce qui garde le sens des couches.
 - Un seul package `hwanjile`, une bibliothèque et un binaire. Les couches
   sont des modules sous le bounded context : `src/tarot/domain`,
   `src/tarot/application`, `src/tarot/infrastructure`, `src/tarot/ui`. Le
-  niveau `tarot` anticipe un second contexte, comme `php-structure`.
+  niveau `tarot` anticipe un second contexte.
 - cargo-pup garde le sens des couches par des règles d'import, dans
   `pup.ron` : le domaine n'importe aucune autre couche, l'application et
-  l'infrastructure n'importent que le domaine, l'interface n'importe pas le
-  domaine. La cible `make architecture` le lance, dans `make quality`.
+  l'infrastructure n'importent que le domaine, l'interface et le binaire
+  n'importent pas le domaine. La cible `make architecture` le lance, dans `make quality`.
 - La règle d'ADR-0005 sur ce qui circule à travers la frontière reste ; un
   type du domaine reçu par une signature de l'application se vérifie en
   relecture.
 
 ## Alternatives considérées
-- **Garder le workspace d'ADR-0006.** Rejetée : la garantie du compilateur
-  couvre tous les imports, mais au prix d'une structure dimensionnée pour un
-  projet bien plus gros, et l'analyse du code mort ne voit plus un élément
-  `pub` inutilisé d'un autre package.
+- **Garder le workspace d'ADR-0006.** Rejetée. La garantie du compilateur
+  couvre tous les imports. La structure est dimensionnée pour un projet bien
+  plus gros, et l'analyse du code mort ne voit plus un élément `pub`
+  inutilisé d'un autre package.
 - **Un seul package gardé par la relecture seule**, comme les références.
   Rejetée : l'utilisateur débute en Rust et veut un filet en plus.
 - **mille.** Rejetée : à l'essai, il manque les imports entre accolades,
@@ -40,7 +41,7 @@ structure, et de ce qui garde le sens des couches.
 ## Conséquences
 - cargo-pup ne lit que les `use` : un chemin complet écrit dans le code sans
   `use` lui échappe, et reste à la relecture.
-- Une seconde nightly figée (`nightly-2026-01-22`, Rust 1.95) avec les
+- Une nightly figée (`nightly-2026-01-22`, Rust 1.95) avec les
   composants internes du compilateur, lancée avec `--ignore-rust-version`.
   Le code doit compiler en 1.95 : une fonctionnalité stabilisée après fait
   échouer `make architecture`.

@@ -2,7 +2,7 @@
 
 ## #001 — Donne complète en terminal
 - **Ouvert le** : 2026-10-20
-- **Dernière touche** : 2026-10-26
+- **Dernière touche** : 2026-10-27
 - **Échéance** : —
 - **Contexte** : Projet d'apprentissage de Rust par curiosité : un tarot à
   quatre, moi contre trois bots, contrats prise / garde / garde sans, sans

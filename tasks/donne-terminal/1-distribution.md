@@ -60,9 +60,9 @@ Partie domaine :
 
 Partie technique :
 - **Structure** : un package `hwanjile`, bibliothèque et binaire, couches
-  en modules sous `src/tarot/` (ADR-0008, `rust-structure`). L'interface
-  n'importe pas le domaine ; l'infrastructure n'importe que le domaine ;
-  gardé par `make architecture`.
+  en modules sous `src/tarot/` (ADR-0008, `rust-structure`). L'interface et
+  le binaire n'importent pas le domaine. L'infrastructure n'importe que le
+  domaine. `make architecture` garde ces règles.
 - **Application** (ADR-0005) :
   - Un module par opération (`start_game`, `observe_seat`,
     `observe_table`), qui regroupe le message, son handler et son modèle de
@@ -98,9 +98,9 @@ Partie technique :
     pleine propriété, pour en consommer la phase, puis range la suivante ; un
     handler de lecture l'emprunte. Sans donne en cours, une requête rend une
     erreur de l'application.
-- **Interface terminal** : `println!`, autorisé par
-  `#![allow(clippy::print_stdout)]` en tête de `main.rs`, le lint étant actif
-  dans tout le package. Appelle `StartGame`, puis
+- **Interface terminal** : module `src/tarot/ui`, appelé par `main.rs`.
+  `println!`, autorisé par `#![allow(clippy::print_stdout)]` en tête de
+  `src/tarot/ui.rs`, le lint étant actif dans tout le package. Appelle `StartGame`, puis
   `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
   d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
   et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,

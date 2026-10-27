@@ -34,6 +34,17 @@
             ],
         )),
         Module((
+            name: "composition_root_does_not_see_the_domain",
+            matches: Module("^hwanjile$"),
+            rules: [
+                RestrictImports(
+                    allowed_only: None,
+                    denied: Some(["(^|::)domain(::|$)"]),
+                    severity: Error,
+                ),
+            ],
+        )),
+        Module((
             name: "ui_does_not_see_the_domain",
             matches: Module("^hwanjile::tarot::ui(::.*)?$"),
             rules: [
