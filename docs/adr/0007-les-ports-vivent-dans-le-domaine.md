@@ -1,6 +1,6 @@
 # ADR-0007 — Les ports vivent dans le domaine
 
-- Statut : accepté
+- Statut : proposé
 - Date : 2026-10-27
 - Portée : projet Hwanjile, tout le code ; remplace ADR-0005 sur la couche
   qui définit le port de dépôt, et ADR-0006 sur la dépendance de
@@ -40,14 +40,19 @@ vivent.
 - Le domaine porte des contrats qui existent pour l'extérieur (stockage,
   hasard) ; leurs implémentations restent hors du domaine.
 - La vérification `public-api` retire de la sortie de `cargo-public-api` les
-  traits de port en contrainte de générique, d'après une liste tenue dans le
-  Makefile, avant de chercher le domaine. Chaque nouveau port s'ajoute à
-  cette liste.
+  traits de port en contrainte de générique d'une structure ou d'un `impl`,
+  d'après une liste tenue dans le Makefile, avant de chercher le domaine.
+  Chaque nouveau port s'ajoute à cette liste. Elle refuse tout `pub use` dans
+  l'application, dont l'outil masque l'origine.
+- La vérification attrape l'erreur accidentelle, pas le contournement
+  délibéré. Restent à la relecture : un élément caché à l'outil
+  (`#[doc(hidden)]`, `#[cfg(not(doc))]`), et une fonction publique de
+  l'infrastructure qui rendrait un type du domaine au binaire.
 - Le binaire ne déclare toujours pas le domaine : il passe aux handlers les
   adaptateurs de l'infrastructure sans nommer les traits qu'ils implémentent.
 
 ## Sources
-- Eric Evans, _Domain-Driven Design_, chapitre « Repositories » ; Vaughn
+- Eric Evans, _Domain-Driven Design_, chapitre 6, section « Repositories » ; Vaughn
   Vernon, _Implementing Domain-Driven Design_, chapitre 12 : l'interface du
   repository dans la couche domaine, son implémentation dans
   l'infrastructure. L'extension à `Shuffler` et `DealerDraw` est un choix du
