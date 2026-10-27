@@ -1,6 +1,6 @@
 # ADR-0007 — Les ports vivent dans le domaine
 
-- Statut : proposé
+- Statut : accepté
 - Date : 2026-10-27
 - Portée : projet Hwanjile, tout le code ; remplace ADR-0005 sur la couche
   qui définit le port de dépôt, et ADR-0006 sur la dépendance de
