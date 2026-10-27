@@ -3,17 +3,5 @@
 version = 4
 
 [[package]]
-name = "hwanjile-application"
-version = "0.1.0"
-
-[[package]]
-name = "hwanjile-domain"
-version = "0.1.0"
-
-[[package]]
-name = "hwanjile-infrastructure"
-version = "0.1.0"
-
-[[package]]
-name = "hwanjile-ui"
+name = "hwanjile"
 version = "0.1.0"

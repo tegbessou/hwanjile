@@ -2,7 +2,7 @@
 
 ## #001 — Donne complète en terminal
 - **Ouvert le** : 2026-10-20
-- **Dernière touche** : 2026-10-26
+- **Dernière touche** : 2026-10-27
 - **Échéance** : —
 - **Contexte** : Projet d'apprentissage de Rust par curiosité : un tarot à
   quatre, moi contre trois bots, contrats prise / garde / garde sans, sans
@@ -45,3 +45,6 @@
   - 2026-10-26 — ADR-0005 réécrit : handlers de commande et de lecture,
     donne rangée par un dépôt, modèles de lecture de l'application ; le
     terminal ne dépend plus du domaine
+  - 2026-10-27 — bootstrap mergé (PR #3) ; ports dans le domaine (ADR-0007)
+  - 2026-10-27 — workspace abandonné pour un seul package, couches sous
+    `src/tarot/` gardées par cargo-pup (ADR-0008) ; essai comparé à mille
