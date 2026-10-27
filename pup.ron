@@ -1,0 +1,48 @@
+(
+    lints: [
+        Module((
+            name: "domain_depends_on_no_other_layer",
+            matches: Module("^hwanjile::tarot::domain(::.*)?$"),
+            rules: [
+                RestrictImports(
+                    allowed_only: None,
+                    denied: Some(["(^|::)application(::|$)", "(^|::)infrastructure(::|$)", "(^|::)ui(::|$)"]),
+                    severity: Error,
+                ),
+            ],
+        )),
+        Module((
+            name: "application_depends_on_domain_only",
+            matches: Module("^hwanjile::tarot::application(::.*)?$"),
+            rules: [
+                RestrictImports(
+                    allowed_only: None,
+                    denied: Some(["(^|::)infrastructure(::|$)", "(^|::)ui(::|$)"]),
+                    severity: Error,
+                ),
+            ],
+        )),
+        Module((
+            name: "infrastructure_depends_on_domain_only",
+            matches: Module("^hwanjile::tarot::infrastructure(::.*)?$"),
+            rules: [
+                RestrictImports(
+                    allowed_only: None,
+                    denied: Some(["(^|::)application(::|$)", "(^|::)ui(::|$)"]),
+                    severity: Error,
+                ),
+            ],
+        )),
+        Module((
+            name: "ui_does_not_see_the_domain",
+            matches: Module("^hwanjile::tarot::ui(::.*)?$"),
+            rules: [
+                RestrictImports(
+                    allowed_only: None,
+                    denied: Some(["(^|::)domain(::|$)"]),
+                    severity: Error,
+                ),
+            ],
+        )),
+    ],
+)

@@ -45,3 +45,6 @@
   - 2026-10-26 — ADR-0005 réécrit : handlers de commande et de lecture,
     donne rangée par un dépôt, modèles de lecture de l'application ; le
     terminal ne dépend plus du domaine
+  - 2026-10-27 — bootstrap mergé (PR #3) ; ports dans le domaine (ADR-0007)
+  - 2026-10-27 — workspace abandonné pour un seul package, couches sous
+    `src/tarot/` gardées par cargo-pup (ADR-0008) ; essai comparé à mille

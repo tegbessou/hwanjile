@@ -59,11 +59,10 @@ Partie domaine :
   (ADR-0003), ce que range le dépôt.
 
 Partie technique :
-- **Packages** : workspace d'un package par couche ; ADR-0006,
-  `rust-structure`. `hwanjile-domain`, `hwanjile-application`,
-  `hwanjile-infrastructure`, et le binaire `hwanjile-ui`, composition
-  root, qui ne dépend pas de `hwanjile-domain`. `hwanjile-infrastructure`
-  ne dépend que du domaine (ADR-0007).
+- **Structure** : un package `hwanjile`, bibliothèque et binaire, couches
+  en modules sous `src/tarot/` (ADR-0008, `rust-structure`). L'interface
+  n'importe pas le domaine ; l'infrastructure n'importe que le domaine ;
+  gardé par `make architecture`.
 - **Application** (ADR-0005) :
   - Un module par opération (`start_game`, `observe_seat`,
     `observe_table`), qui regroupe le message, son handler et son modèle de
@@ -85,7 +84,7 @@ Partie technique :
   - Commandes, requêtes, modèles de lecture et erreurs rendues au terminal
     sont des types définis par l'application, jamais des types du domaine
     (ADR-0005) ; les traits de port n'y apparaissent qu'en contrainte de
-    générique (ADR-0007). Vérifié par la cible `public-api`.
+    générique (ADR-0007). Vérifié en relecture.
   - Pas de bus : le terminal appelle les handlers.
 - **Ports & adaptateurs** :
   - `Shuffler` (réordonne le jeu reçu, tire les positions du chien) et
@@ -101,7 +100,7 @@ Partie technique :
     erreur de l'application.
 - **Interface terminal** : `println!`, autorisé par
   `#![allow(clippy::print_stdout)]` en tête de `main.rs`, le lint étant actif
-  dans tout le workspace. Appelle `StartGame`, puis
+  dans tout le package. Appelle `StartGame`, puis
   `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
   d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
   et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,
@@ -112,18 +111,18 @@ Partie technique :
   `DealRepository` → `Observation` → `SeatObservation` rendue par le
   terminal.
 - **Tests** :
-  - `hwanjile-application/tests/distribution.rs` : scénarios 1 (main, place,
+  - `tests/distribution.rs` : scénarios 1 (main, place,
     donneur), 2 (jeu complet) et 3 (extrémités hors du chien, avec une
     doublure qui ordonne le jeu et place le chien au plus près des
     extrémités), par les handlers, avec des doublures de `Shuffler`,
     `DealerDraw` et `DealRepository` écrites à la main.
-  - `hwanjile-domain` : refus d'un paquet incomplet, refus de positions
+  - Domaine, tests de module : refus d'un paquet incomplet, refus de positions
     contraires à R1, tests propres à `Card` et `Seat`.
-  - `hwanjile-infrastructure` : `RandChance` rend le jeu reçu, réordonné,
+  - Infrastructure, tests de module : `RandChance` rend le jeu reçu, réordonné,
     et des positions conformes à R1 ; `InMemoryDealRepository` rend ce
     qu'on y a rangé.
-  - Binaire : rangement de la main dans ses modules ; scénario 4 dans
-    `hwanjile-ui/tests/`, qui lance l'exécutable avec `--debug`
+  - Interface : rangement de la main dans ses modules ; scénario 4 dans
+    `tests/`, qui lance l'exécutable avec `--debug`
     (`CARGO_BIN_EXE_<name>`).
 - **Contrats externes** : aucun, hors la crate `rand`, confrontée à docs.rs.
 - **Contact avec le noyau** : introduit `Card`, `Seat`, `Hand`, `Kitty`,
