@@ -1,6 +1,6 @@
 # ADR-0008 — Un seul package, couches gardées par cargo-pup
 
-- Statut : proposé
+- Statut : accepté
 - Date : 2026-10-27
 - Portée : projet Hwanjile, tout le code ; remplace ADR-0006, et ADR-0007
   sur la vérification `public-api` et la dépendance de l'infrastructure
