@@ -2,6 +2,7 @@
 
 ## Tools
 NIGHTLY = nightly-2026-10-25
+DOMAIN_PORTS = DealRepository|Shuffler|DealerDraw
 
 install:
 	rustup install
@@ -27,12 +28,16 @@ clippy:
 
 public-api:
 	@api=$$(cargo +$(NIGHTLY) public-api --package hwanjile-application) || exit 1; \
-	if echo "$$api" | grep hwanjile_domain; then \
+	if echo "$$api" | sed -E 's/: hwanjile_domain::([a-z_]+::)*($(DOMAIN_PORTS))([,> ]|$$)/\3/g' | grep hwanjile_domain; then \
 		echo "hwanjile-application expose un type du domaine (ADR-0005)"; \
 		exit 1; \
 	fi
 	@if grep --recursive --line-number --extended-regexp "pub use " crates/hwanjile-application/src | grep --invert-match --extended-regexp "pub use (crate|self|super)::"; then \
 		echo "hwanjile-application réexporte un élément hors de sa crate (ADR-0005)"; \
+		exit 1; \
+	fi
+	@if grep --recursive --line-number "hwanjile_domain as " crates/hwanjile-application/src; then \
+		echo "hwanjile-application renomme le domaine, ce qui contourne la vérification (ADR-0005)"; \
 		exit 1; \
 	fi
 

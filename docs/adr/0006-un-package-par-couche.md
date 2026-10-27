@@ -1,6 +1,7 @@
 # ADR-0006 — Un package par couche
 
-- Statut : accepté
+- Statut : accepté ; dépendance de l'infrastructure vers l'application
+  remplacée par ADR-0007
 - Date : 2026-10-26
 - Portée : projet Hwanjile, tout le code
 

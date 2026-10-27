@@ -62,7 +62,8 @@ Partie technique :
 - **Packages** : workspace d'un package par couche ; ADR-0006,
   `rust-structure`. `hwanjile-domain`, `hwanjile-application`,
   `hwanjile-infrastructure`, et le binaire `hwanjile-ui`, composition
-  root, qui ne dépend pas de `hwanjile-domain`.
+  root, qui ne dépend pas de `hwanjile-domain`. `hwanjile-infrastructure`
+  ne dépend que du domaine (ADR-0007).
 - **Application** (ADR-0005) :
   - Un module par opération (`start_game`, `observe_seat`,
     `observe_table`), qui regroupe le message, son handler et son modèle de
@@ -71,8 +72,8 @@ Partie technique :
     `DealerDraw`, ouvre la donne par `OpenDeal`, range le `Deal` par le
     dépôt.
   - `OpenDeal`, générique sur `S: Shuffler`, partagé entre handlers et
-    absent de l'API publique : reçoit
-    le donneur, fait réordonner le jeu complet par le port, obtient les
+    absent de l'API publique : `StartGame::new` le construit à partir du
+    `Shuffler` reçu. Il reçoit le donneur, fait réordonner le jeu complet par le port, obtient les
     positions du chien et construit `DealInBidding` ; il rend une erreur si
     la construction refuse. La redistribution de la task 2 le rappellera
     avec le donneur connu (R15).
@@ -82,8 +83,9 @@ Partie technique :
   - Requête `ObserveTable` et son handler : même chemin pour la
     `DebugObservation`, traduite en `TableObservation`.
   - Commandes, requêtes, modèles de lecture et erreurs rendues au terminal
-    sont des types définis par l'application, jamais des types du domaine ;
-    vérifié en relecture, Cargo ne gardant que l'import (ADR-0005).
+    sont des types définis par l'application, jamais des types du domaine
+    (ADR-0005) ; les traits de port n'y apparaissent qu'en contrainte de
+    générique (ADR-0007). Vérifié par la cible `public-api`.
   - Pas de bus : le terminal appelle les handlers.
 - **Ports & adaptateurs** :
   - `Shuffler` (réordonne le jeu reçu, tire les positions du chien) et
@@ -97,13 +99,15 @@ Partie technique :
     pleine propriété, pour en consommer la phase, puis range la suivante ; un
     handler de lecture l'emprunte. Sans donne en cours, une requête rend une
     erreur de l'application.
-- **Interface terminal** : `println!`. Appelle `StartGame`, puis
+- **Interface terminal** : `println!`, autorisé par
+  `#![allow(clippy::print_stdout)]` en tête de `main.rs`, le lint étant actif
+  dans tout le workspace. Appelle `StartGame`, puis
   `ObserveSeat` pour Sud ; range la main dans l'ordre du critère
   d'acceptation, règle d'affichage portée par l'interface ; affiche l'erreur
   et s'arrête si l'ouverture échoue. `--debug`, lu par `std::env::args`,
   appelle en plus `ObserveTable`.
-- **Forme de la tranche** : le binaire construit les adaptateurs, `OpenDeal`
-  et les handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
+- **Forme de la tranche** : le binaire construit les adaptateurs et les
+  handlers → handler `StartGame` → `DealerDraw`, `OpenDeal` → `Shuffler` →
   `DealInBidding` → `DealRepository` ; puis handler `ObserveSeat` →
   `DealRepository` → `Observation` → `SeatObservation` rendue par le
   terminal.
